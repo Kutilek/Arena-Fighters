@@ -4,25 +4,32 @@ public class Player_Input_Handler : MonoBehaviour
 {
     private KeyCode[] inputKeys = {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Q, KeyCode.E, KeyCode.F, KeyCode.Space,
     KeyCode.LeftShift, KeyCode.LeftControl, KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Mouse2};
+    private Command_Handler commandHandler;
+    private Command command;
+
+    void Start()
+    {
+        commandHandler = GetComponent<Command_Handler>();
+    }
 
     void Update()
     {
         GetKeyCodePressedAndReleased();
         GetMouseScrollDeltaY();
+        commandHandler.currentCommand = command;
     }
 
     void GetKeyCodePressedAndReleased()
     {
         foreach(KeyCode inputKey in inputKeys)
         {
-            string message = inputKey.ToString() + " was ";
             if(Input.GetKeyDown(inputKey))
             {
-                Debug.Log(message + "pressed");
+                command.keyCode = inputKey;
             }
             else if(Input.GetKeyUp(inputKey))
             {         
-                Debug.Log(message + "released");
+                command.keyCode = KeyCode.None;
             }
         }
     }
