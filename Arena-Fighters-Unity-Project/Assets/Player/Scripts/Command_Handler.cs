@@ -6,9 +6,12 @@ public class Command_Handler : MonoBehaviour
     private Command walkBackwardCommand = new Command(KeyCode.S);
     private Command walkLeftCommand = new Command(KeyCode.A);
     private Command walkRightCommand = new Command(KeyCode.D);
+    private HelperCommand shiftHelperCommand = new HelperCommand(KeyCode.LeftShift);
+    private HelperCommand controlHelperCommand = new HelperCommand(KeyCode.LeftControl);
 
     private Player_Character_Controller playerCharacterController;
-    public Command currentCommand;
+    public Command currentMainCommand;
+    public HelperCommand currentHelperCommand;
 
     void Start()
     {
@@ -17,24 +20,29 @@ public class Command_Handler : MonoBehaviour
 
     void Update()
     {
-        if(currentCommand.Equals(walkForwardCommand))
+        if(currentMainCommand.Equals(walkForwardCommand))
         {
             playerCharacterController.WalkForward();
         }
 
-        if(currentCommand.Equals(walkBackwardCommand))
+        if(currentMainCommand.Equals(walkBackwardCommand))
         {
             playerCharacterController.WalkBackward();
         }
 
-        if(currentCommand.Equals(walkLeftCommand))
+        if(currentMainCommand.Equals(walkLeftCommand))
         {
             playerCharacterController.WalkLeft();
         }
 
-        if(currentCommand.Equals(walkRightCommand))
+        if(currentMainCommand.Equals(walkRightCommand))
         {
             playerCharacterController.WalkRight();
+        }
+
+        if(currentHelperCommand.Equals(shiftHelperCommand) && currentMainCommand.Equals(walkForwardCommand))
+        {
+            playerCharacterController.WalkFastForward();
         }
     }
 }

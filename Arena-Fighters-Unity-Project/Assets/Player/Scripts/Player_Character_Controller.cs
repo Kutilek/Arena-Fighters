@@ -21,4 +21,9 @@ public abstract class Player_Character_Controller : MonoBehaviour
     {
         Debug.Log("I am walking right!!!");
     }
+
+    public virtual void WalkFastForward()
+    {
+        Debug.Log("I am walking fast forward!!!");
+    }
 }
