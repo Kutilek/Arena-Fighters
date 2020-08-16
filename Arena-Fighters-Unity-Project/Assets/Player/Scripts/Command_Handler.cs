@@ -20,29 +20,37 @@ public class Command_Handler : MonoBehaviour
 
     void Update()
     {
-        if(currentMainCommand.Equals(walkForwardCommand))
+        if (currentMainCommand.Equals(walkForwardCommand))
         {
             playerCharacterController.walkingForward = true;
         }
-
-        else if(currentMainCommand.Equals(walkBackwardCommand))
+        else if (currentMainCommand.Equals(walkBackwardCommand))
         {
             playerCharacterController.walkingBackward = true;
         }
-
-        else if(currentMainCommand.Equals(walkLeftCommand))
+        else if (currentMainCommand.Equals(walkLeftCommand))
         {
             playerCharacterController.walkingLeft = true;
         }
-
-        else if(currentMainCommand.Equals(walkRightCommand))
+        else if (currentMainCommand.Equals(walkRightCommand))
         {
             playerCharacterController.walkingRight = true;
         }
 
-        else if(currentHelperCommand.Equals(shiftHelperCommand))
-        {
+        GetHelperCommand();
+    }
+
+    void GetHelperCommand()
+    {
+        if (currentHelperCommand.Equals(shiftHelperCommand))
             playerCharacterController.shiftHelperKey = true;
+        else if (currentHelperCommand.Equals(controlHelperCommand))
+        {
+
+        }
+        else
+        {
+            playerCharacterController.shiftHelperKey = false;
         }
     }
 }
