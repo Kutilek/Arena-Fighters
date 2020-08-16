@@ -21,24 +21,22 @@ public class Player_Input_Handler : MonoBehaviour
 
     Command CreateCommand(KeyCode[] inputKeys)
     {
-        Command command = new Command(KeyCode.None);
         foreach(KeyCode inputKey in inputKeys)
         {
-            if(Input.GetKey(inputKey))
-                command = new Command(inputKey);
+            if(Input.GetKeyDown(inputKey))
+                return new Command(inputKey);  
         }
-        return command;
+        return new Command();
     }
 
     HelperCommand CreateHelperCommand(KeyCode[] inputKeys)
     {
-        HelperCommand command = new HelperCommand(KeyCode.None);
         foreach(KeyCode inputKey in inputKeys)
         {
-            if(Input.GetKey(inputKey))
-                command = new HelperCommand(inputKey);
+            if(Input.GetKeyDown(inputKey))
+                return new HelperCommand(inputKey);
         }
-        return command;
+        return new HelperCommand();
     }
 
     void GetMouseScrollDeltaY()

@@ -439,6 +439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067340e838c2f804da1fa2cb326225a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastPressed: 0
+  timer: 0
+  doublePressTimer: 1
 --- !u!114 &1618387193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMainCommand:
     keyCode: 0
+    doublePressed: 0
   currentHelperCommand:
     keyCode: 0
 --- !u!114 &1618387194
@@ -464,6 +468,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618387190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c31e875c99c35c41ab6ae60ddb4b767, type: 3}
+  m_Script: {fileID: 11500000, guid: 41c2eeb4917550e41a45b6119dcea64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -22,27 +22,27 @@ public class Command_Handler : MonoBehaviour
     {
         if(currentMainCommand.Equals(walkForwardCommand))
         {
-            playerCharacterController.WalkForward();
+            playerCharacterController.walkingForward = true;
         }
 
-        if(currentMainCommand.Equals(walkBackwardCommand))
+        else if(currentMainCommand.Equals(walkBackwardCommand))
         {
-            playerCharacterController.WalkBackward();
+            playerCharacterController.walkingBackward = true;
         }
 
-        if(currentMainCommand.Equals(walkLeftCommand))
+        else if(currentMainCommand.Equals(walkLeftCommand))
         {
-            playerCharacterController.WalkLeft();
+            playerCharacterController.walkingLeft = true;
         }
 
-        if(currentMainCommand.Equals(walkRightCommand))
+        else if(currentMainCommand.Equals(walkRightCommand))
         {
-            playerCharacterController.WalkRight();
+            playerCharacterController.walkingRight = true;
         }
 
-        if(currentHelperCommand.Equals(shiftHelperCommand) && currentMainCommand.Equals(walkForwardCommand))
+        else if(currentHelperCommand.Equals(shiftHelperCommand))
         {
-            playerCharacterController.WalkFastForward();
+            playerCharacterController.shiftHelperKey = true;
         }
     }
 }
