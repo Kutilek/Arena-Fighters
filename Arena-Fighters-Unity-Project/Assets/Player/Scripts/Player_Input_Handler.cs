@@ -24,7 +24,9 @@ public class Player_Input_Handler : MonoBehaviour
         foreach(KeyCode inputKey in inputKeys)
         {
             if (Input.GetKeyDown(inputKey))
-                return new Command(inputKey);  
+                return new Command(inputKey, false);
+            if (Input.GetKeyUp(inputKey))
+                return new Command(inputKey, true); 
         }
         return new Command();
     }

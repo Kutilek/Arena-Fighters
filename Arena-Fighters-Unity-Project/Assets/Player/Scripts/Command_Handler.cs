@@ -2,10 +2,14 @@
 
 public class Command_Handler : MonoBehaviour
 {
-    private Command walkForwardCommand = new Command(KeyCode.W);
-    private Command walkBackwardCommand = new Command(KeyCode.S);
-    private Command walkLeftCommand = new Command(KeyCode.A);
-    private Command walkRightCommand = new Command(KeyCode.D);
+    private Command walkForwardCommand = new Command(KeyCode.W, false);
+    private Command walkBackwardCommand = new Command(KeyCode.S, false);
+    private Command walkLeftCommand = new Command(KeyCode.A, false);
+    private Command walkRightCommand = new Command(KeyCode.D, false);
+    private Command walkForwardRelease = new Command(KeyCode.W, true);
+    private Command walkBackwardRelease = new Command(KeyCode.S, true);
+    private Command walkLeftRelease = new Command(KeyCode.A, true);
+    private Command walkRightRelease = new Command(KeyCode.D, true);
     private HelperCommand shiftHelperCommand = new HelperCommand(KeyCode.LeftShift);
     private HelperCommand controlHelperCommand = new HelperCommand(KeyCode.LeftControl);
 
@@ -35,6 +39,23 @@ public class Command_Handler : MonoBehaviour
         else if (currentMainCommand.Equals(walkRightCommand))
         {
             playerCharacterController.walkingRight = true;
+        }
+
+        else if (currentMainCommand.Equals(walkForwardRelease))
+        {
+            playerCharacterController.walkingForward = false;
+        }
+        else if (currentMainCommand.Equals(walkBackwardRelease))
+        {
+            playerCharacterController.walkingBackward = false;
+        }
+        else if (currentMainCommand.Equals(walkLeftRelease))
+        {
+            playerCharacterController.walkingLeft = false;
+        }
+        else if (currentMainCommand.Equals(walkRightRelease))
+        {
+            playerCharacterController.walkingRight = false;
         }
 
         GetHelperCommand();
