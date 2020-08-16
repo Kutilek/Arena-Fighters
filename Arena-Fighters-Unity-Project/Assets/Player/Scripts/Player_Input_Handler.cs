@@ -23,7 +23,7 @@ public class Player_Input_Handler : MonoBehaviour
     {
         foreach(KeyCode inputKey in inputKeys)
         {
-            if(Input.GetKeyDown(inputKey))
+            if (Input.GetKeyDown(inputKey))
                 return new Command(inputKey);  
         }
         return new Command();
@@ -33,7 +33,7 @@ public class Player_Input_Handler : MonoBehaviour
     {
         foreach(KeyCode inputKey in inputKeys)
         {
-            if(Input.GetKeyDown(inputKey))
+            if (Input.GetKey(inputKey))
                 return new HelperCommand(inputKey);
         }
         return new HelperCommand();
