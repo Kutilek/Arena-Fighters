@@ -6,7 +6,7 @@ public class Movement_Input_Handler : Input_Handler
     private float doublePressTimer;
 
     public float doublePressTime;
-    
+
     protected override void Start()
     {
         base.Start();
@@ -16,6 +16,7 @@ public class Movement_Input_Handler : Input_Handler
 
     void Update()
     {
+        playerController.movementCommand = CreateCommand(inputKeys);
         GetHelperKeyPressed();
     }
 
