@@ -11,6 +11,11 @@ Example: Colloseum_Concept_0.kra
 
 
 Code
-The exception applies for code files that define structs. Each word starts with a capital letter, but is not separated by an underscore
+Structs - Each word starts with a capital letter, but is not separated by an underscore
 
 Example: HelperCommand.cs
+
+Interfaces - Interface name starts with the "I" letter, and it is followed by the naming conventions of a struct
+
+Example: IAttackMethods.cs
+
