@@ -2,14 +2,14 @@
 
 public abstract class Input_Handler : MonoBehaviour
 {
-    protected Player_Controller commandHandler;
+    protected Player_Controller playerController;
     protected bool helperKeyPressed;
     protected KeyCode[] inputKeys;
     protected KeyCode helperKey;
     
     protected virtual void Start()
     {
-        commandHandler = GetComponent<Player_Controller>();
+        playerController = GetComponent<Player_Controller>();
     }
 
     protected void GetHelperKeyPressed()
