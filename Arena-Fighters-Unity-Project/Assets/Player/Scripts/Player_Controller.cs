@@ -35,12 +35,19 @@ public class Player_Controller : MonoBehaviour
 
     #endregion
 
+    private Character_Behaviour characterBehaviour;
+
+    void Start()
+    {
+        characterBehaviour = GetComponent<Character_Behaviour>();
+    }
+
     void Update()
     {
         // Forward Movement
         if(movementCommand.Equals(walkForward))
         {
-            Debug.Log("I am walking forward");
+            characterBehaviour.WalkForward();
         }
         else if(movementCommand.Equals(dashForward))
         {
@@ -57,7 +64,7 @@ public class Player_Controller : MonoBehaviour
         // Left Movement
         else if(movementCommand.Equals(walkLeft))
         {
-            Debug.Log("I am walking left");
+            characterBehaviour.WalkLeft();
         }
         else if(movementCommand.Equals(dashLeft))
         {
@@ -74,7 +81,7 @@ public class Player_Controller : MonoBehaviour
         // Backward Movement
         else if(movementCommand.Equals(walkBackward))
         {
-            Debug.Log("I am walking Backward");
+            characterBehaviour.WalkBack();
         }
         else if(movementCommand.Equals(dashBackward))
         {
@@ -91,7 +98,7 @@ public class Player_Controller : MonoBehaviour
         // Right Movement
         else if(movementCommand.Equals(walkRight))
         {
-            Debug.Log("I am walking Right");
+            characterBehaviour.WalkRight();
         }
         else if(movementCommand.Equals(dashRight))
         {

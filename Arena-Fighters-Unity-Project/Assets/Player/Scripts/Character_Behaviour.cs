@@ -1,0 +1,47 @@
+﻿using UnityEngine;
+
+public abstract class Character_Behaviour : MonoBehaviour, IPlayerMovement
+{
+    private CharacterController controller;
+    private float turnSmoothTime = 0.1f;
+    private float turnSmoothVelocity;
+    protected Transform cam;
+
+    public float walkSpeed;
+    
+    protected virtual void Start()
+    {
+        controller = GetComponent<CharacterController>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    }
+
+    protected virtual void Move(Vector3 direction, float speed, Transform cam)
+    {
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        controller.Move(moveDir.normalized * speed * Time.deltaTime);
+    } 
+
+    public virtual void WalkForward()
+    {
+        Debug.Log("I am walking forward"); 
+    }
+
+    public virtual void WalkLeft()
+    {
+        Debug.Log("I am walking left");
+    }
+
+    public virtual void WalkBack()
+    {
+        Debug.Log("I am walking back");
+    }
+
+    public virtual void WalkRight()
+    {
+        Debug.Log("I am walking right");
+    }   
+}
