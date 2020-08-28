@@ -1,7 +1,7 @@
-﻿public interface IPlayerMovement
+﻿using UnityEngine;
+
+public interface IPlayerMovement
 {
-    void WalkForward();
-    void WalkRight();
-    void WalkBack();
-    void WalkLeft();
+    void Walk(Vector3 direction);
+    void Run(Vector3 direction);
 }

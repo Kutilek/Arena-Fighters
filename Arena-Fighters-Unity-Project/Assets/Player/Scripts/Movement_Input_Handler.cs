@@ -16,10 +16,18 @@ public class Movement_Input_Handler : Input_Handler
 
     void Update()
     {
-        playerController.movementCommand = CreateCommand(inputKeys);
-        GetHelperKeyPressed();
+        playerController.moveHelperKeyPressed = GetHelperKeyPressed();
+        playerController.direction = GetMoveDirection();
     }
 
+    Vector3 GetMoveDirection()
+    {
+        float ad = Input.GetAxisRaw("Horizontal");
+        float ws = Input.GetAxisRaw("Vertical");
+        return new Vector3(ad, 0f, ws).normalized;
+    }
+    
+/*
     protected override Command CreateCommand(KeyCode[] inputKeys)
     {
         foreach(KeyCode inputKey in inputKeys)
@@ -45,5 +53,5 @@ public class Movement_Input_Handler : Input_Handler
             }
         }
         return new Command();
-    }
+    }*/
 }

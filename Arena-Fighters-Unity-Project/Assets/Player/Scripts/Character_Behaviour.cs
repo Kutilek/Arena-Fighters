@@ -8,14 +8,25 @@ public abstract class Character_Behaviour : MonoBehaviour, IPlayerMovement
     protected Transform cam;
 
     public float walkSpeed;
+    public float runSpeed;
     
+    public virtual void Walk(Vector3 direction)
+    {
+        Debug.Log("I am walking");
+    }
+
+    public virtual void Run(Vector3 direction)
+    {
+        Debug.Log("I am running");
+    }
+
     protected virtual void Start()
     {
         controller = GetComponent<CharacterController>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
-    protected virtual void Move(Vector3 direction, float speed, Transform cam)
+    protected virtual void Move(Vector3 direction, float speed)
     {
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -23,25 +34,5 @@ public abstract class Character_Behaviour : MonoBehaviour, IPlayerMovement
 
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         controller.Move(moveDir.normalized * speed * Time.deltaTime);
-    } 
-
-    public virtual void WalkForward()
-    {
-        Debug.Log("I am walking forward"); 
-    }
-
-    public virtual void WalkLeft()
-    {
-        Debug.Log("I am walking left");
-    }
-
-    public virtual void WalkBack()
-    {
-        Debug.Log("I am walking back");
-    }
-
-    public virtual void WalkRight()
-    {
-        Debug.Log("I am walking right");
-    }   
+    }  
 }

@@ -66,6 +66,8 @@ MonoBehaviour:
     released: 0
     doublePressed: 0
     helperKeyPressed: 0
+  moveHelperKeyPressed: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &7318744505545264397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
+  runSpeed: 15
 --- !u!143 &3898075463010322814
 CharacterController:
   m_ObjectHideFlags: 0

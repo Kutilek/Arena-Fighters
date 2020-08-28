@@ -5,26 +5,18 @@ public class Player_Controller : MonoBehaviour
     #region Movement Commands
 
     // Forward Movement Commands
-    private Command walkForward = new Command(KeyCode.W, false, false, false);
-    private Command runForward = new Command(KeyCode.W, false, false, true);
     private Command dashForward = new Command(KeyCode.W, false, true, false);
     private Command dashForwardSpecial = new Command(KeyCode.W, false, true, true);
 
     // Left Movement Commands
-    private Command walkLeft = new Command(KeyCode.A, false, false, false);
-    private Command runLeft = new Command(KeyCode.A, false, false, true);
     private Command dashLeft = new Command(KeyCode.A, false, true, false);
     private Command dashLeftSpecial = new Command(KeyCode.A, false, true, true);
 
     // Backward Movement Commands
-    private Command walkBackward = new Command(KeyCode.S, false, false, false);
-    private Command runBackward = new Command(KeyCode.S, false, false, true);
     private Command dashBackward = new Command(KeyCode.S, false, true, false);
     private Command dashBackwardSpecial = new Command(KeyCode.S, false, true, true);
 
     // Right Movement Commands
-    private Command walkRight = new Command(KeyCode.D, false, false, false);
-    private Command runRight = new Command(KeyCode.D, false, false, true);
     private Command dashRight = new Command(KeyCode.D, false, true, false);
     private Command dashRightSpecial = new Command(KeyCode.D, false, true, true);
 
@@ -36,6 +28,8 @@ public class Player_Controller : MonoBehaviour
     #endregion
 
     private Character_Behaviour characterBehaviour;
+    public bool moveHelperKeyPressed;
+    public Vector3 direction;
 
     void Start()
     {
@@ -44,6 +38,16 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
+        if (direction.magnitude >= 0.1f)
+        {
+            if (moveHelperKeyPressed)
+            {
+                characterBehaviour.Run(direction);
+            }
+            characterBehaviour.Walk(direction);
+        }
+
+        /*
         // Forward Movement
         if(movementCommand.Equals(walkForward))
         {
@@ -116,6 +120,6 @@ public class Player_Controller : MonoBehaviour
         else if(movementCommand.Equals(jump))
         {
             Debug.Log("I am jumping!");
-        }
+        }*/
     }
 }

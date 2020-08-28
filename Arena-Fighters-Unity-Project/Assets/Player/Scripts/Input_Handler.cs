@@ -3,7 +3,6 @@
 public abstract class Input_Handler : MonoBehaviour
 {
     protected Player_Controller playerController;
-    protected bool helperKeyPressed;
     protected KeyCode[] inputKeys;
     protected KeyCode helperKey;
     
@@ -12,12 +11,12 @@ public abstract class Input_Handler : MonoBehaviour
         playerController = GetComponent<Player_Controller>();
     }
 
-    protected void GetHelperKeyPressed()
+    protected bool GetHelperKeyPressed()
     {
         if (Input.GetKey(helperKey))
-            helperKeyPressed = true;
+            return true;
         else
-            helperKeyPressed = false;
+            return false;
     }
 
     protected virtual Command CreateCommand(KeyCode[] inputKeys)

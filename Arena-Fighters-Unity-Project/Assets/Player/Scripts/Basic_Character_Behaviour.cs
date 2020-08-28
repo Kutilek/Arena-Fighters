@@ -2,23 +2,13 @@
 
 public class Basic_Character_Behaviour : Character_Behaviour, IPlayerMovement
 { 
-    public override void WalkForward()
+    public override void Walk(Vector3 direction)
     {
-        Move(Vector3.forward, walkSpeed, cam);
+        Move(direction, walkSpeed);
     }
 
-    public override void WalkLeft()
+    public override void Run(Vector3 direction)
     {
-        Move(Vector3.left, walkSpeed, cam);
-    }
-
-    public override void WalkBack()
-    {
-        Move(Vector3.back, walkSpeed, cam);
-    }
-
-    public override void WalkRight()
-    {
-        Move(Vector3.right, walkSpeed, cam);
+        Move(direction, runSpeed);
     }
 }
