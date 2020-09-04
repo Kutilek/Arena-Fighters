@@ -14,9 +14,10 @@ public class Movement_Input_Handler : Input_Handler
         inputKeys = new KeyCode[5] {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
     }
 
-    void Update()
+    void FixedUpdate()
     {
         playerController.moveHelperKeyPressed = GetHelperKeyPressed();
+        playerController.movementCommand = CreateCommand(inputKeys);
         playerController.direction = GetMoveDirection();
     }
 
@@ -26,8 +27,7 @@ public class Movement_Input_Handler : Input_Handler
         float ws = Input.GetAxisRaw("Vertical");
         return new Vector3(ad, 0f, ws).normalized;
     }
-    
-/*
+
     protected override Command CreateCommand(KeyCode[] inputKeys)
     {
         foreach(KeyCode inputKey in inputKeys)
@@ -38,20 +38,20 @@ public class Movement_Input_Handler : Input_Handler
                 if(Time.time - doublePressTimer < doublePressTime) 
                 {
                     doublePressTimer = 0f;
-                    return new Command(inputKey, false, true, helperKeyPressed);
+                    return new Command(inputKey, false, true);
                 }
             }
 
             if (Input.GetKey(inputKey))
-                return new Command(inputKey, false, false, helperKeyPressed);
+                return new Command(inputKey, false, false);
 
             if (Input.GetKeyUp(inputKey))
             {
                 lastPressed = inputKey;
                 doublePressTimer = Time.time;
-                return new Command(inputKey, true, false, helperKeyPressed);
+                return new Command(inputKey, true, false);
             }
         }
         return new Command();
-    }*/
+    }
 }

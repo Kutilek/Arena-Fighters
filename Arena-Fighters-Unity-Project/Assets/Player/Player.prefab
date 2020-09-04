@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3142244855405514984}
   - component: {fileID: 3142244855405514982}
   - component: {fileID: 3142244855405514983}
-  - component: {fileID: 7318744505545264397}
   - component: {fileID: 3898075463010322814}
   m_Layer: 0
   m_Name: Player
@@ -65,23 +64,11 @@ MonoBehaviour:
     keyCode: 0
     released: 0
     doublePressed: 0
-    helperKeyPressed: 0
   moveHelperKeyPressed: 0
   direction: {x: 0, y: 0, z: 0}
---- !u!114 &7318744505545264397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3142244855405514985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 636a9ce8605deac49b3a8cd0f9f18fcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   walkSpeed: 5
-  runSpeed: 15
+  runSpeed: 10
+  damping: 1
 --- !u!143 &3898075463010322814
 CharacterController:
   m_ObjectHideFlags: 0
