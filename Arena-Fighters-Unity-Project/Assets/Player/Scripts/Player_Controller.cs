@@ -23,9 +23,15 @@ public class Player_Controller : MonoBehaviour
     private float turnSmoothTime = 0.05f;
     
     private Vector3 currentImpact;
+    private float currentSpeed;
+    private float dashBonus;
 
-    [SerializeField] protected float walkSpeed;
-    [SerializeField] protected float runSpeed;
+    [SerializeField] protected float frontSpeed;
+    [SerializeField] protected float sideSpeed;
+    [SerializeField] protected float backSpeed;
+    [SerializeField] protected float frontDashForce;
+    [SerializeField] protected float sideDashForce;
+    [SerializeField] protected float backDashForce;
     [SerializeField] protected float damping;
     [SerializeField] protected float mass;
     
@@ -37,28 +43,45 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
+        SetSpeed();
+
         if (movementCommand.Equals(dashForward))
         {
-            Debug.Log("I am dashing");
-            StartCoroutine(Dash(50f, 0f));
+            StartCoroutine(Dash(frontDashForce * dashBonus, 0f));
         }
         else if (movementCommand.Equals(dashBackward))
         {
-            Debug.Log("I am back");
-            StartCoroutine(Dash(10f, 180f));
+            StartCoroutine(Dash(backDashForce * dashBonus, 180f));
         }
         else if (movementCommand.Equals(dashLeft))
         {
-            Debug.Log("I am left");
-            StartCoroutine(Dash(25f, 270f));
+            StartCoroutine(Dash(sideDashForce * dashBonus, 270f));
         }   
         else if (movementCommand.Equals(dashRight))
         {
-            Debug.Log("I am right");
-            StartCoroutine(Dash(25f, 90f));
+            StartCoroutine(Dash(sideDashForce * dashBonus, 90f));
         }
                
-        Walk(walkSpeed);   
+        Walk(currentSpeed);   
+    }
+
+    void SetSpeed()
+    {
+        dashBonus = 1f;
+
+        if (direction.z > 0.5f)
+            currentSpeed = frontSpeed;
+        else
+            currentSpeed = backSpeed;
+
+        if (Mathf.Abs(direction.x) > 0.5f)
+            currentSpeed = sideSpeed;
+
+        if (moveHelperKeyPressed)
+        {
+            currentSpeed *= 2f;
+            dashBonus = 2f;
+        }
     }
 
     public virtual IEnumerator Dash(float dashForce, float direction)
