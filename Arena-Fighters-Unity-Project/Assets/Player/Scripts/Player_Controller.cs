@@ -5,41 +5,29 @@ public class Player_Controller : MonoBehaviour
 {
     #region Movement Commands
 
-    // Forward Movement Commands
     private Command dashForward = new Command(KeyCode.W, false, true);
-    private Command dashForwardSpecial = new Command(KeyCode.W, false, true);
-
-    // Left Movement Commands
     private Command dashLeft = new Command(KeyCode.A, false, true);
-    private Command dashLeftSpecial = new Command(KeyCode.A, false, true);
-
-    // Backward Movement Commands
     private Command dashBackward = new Command(KeyCode.S, false, true);
-    private Command dashBackwardSpecial = new Command(KeyCode.S, false, true);
-
-    // Right Movement Commands
     private Command dashRight = new Command(KeyCode.D, false, true);
-    private Command dashRightSpecial = new Command(KeyCode.D, false, true);
-
-    // Jump Movement Commands
     private Command jump = new Command(KeyCode.Space, false, false);
 
     public Command movementCommand;
 
     #endregion
- 
-    private CharacterController controller;
-    public bool moveHelperKeyPressed;
-    public Vector3 direction; 
 
-    private float turnSmoothTime = 0.1f;
-    private float turnSmoothVelocity;
+    public bool moveHelperKeyPressed;
+    public Vector3 direction;
+    private CharacterController controller;
     private Transform cam;
-    private Vector3 currentImpact;
+    private float turnSmoothVelocity;
+    private float turnSmoothTime = 0.05f;
     
+    private Vector3 currentImpact;
+
     [SerializeField] protected float walkSpeed;
     [SerializeField] protected float runSpeed;
     [SerializeField] protected float damping;
+    [SerializeField] protected float mass;
     
     void Start()
     {
@@ -47,13 +35,56 @@ public class Player_Controller : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        float speed = walkSpeed;
-        if (moveHelperKeyPressed)
-            speed = runSpeed;
+        if (movementCommand.Equals(dashForward))
+        {
+            Debug.Log("I am dashing");
+            StartCoroutine(Dash(50f, 0f));
+        }
+        else if (movementCommand.Equals(dashBackward))
+        {
+            Debug.Log("I am back");
+            StartCoroutine(Dash(10f, 180f));
+        }
+        else if (movementCommand.Equals(dashLeft))
+        {
+            Debug.Log("I am left");
+            StartCoroutine(Dash(25f, 270f));
+        }   
+        else if (movementCommand.Equals(dashRight))
+        {
+            Debug.Log("I am right");
+            StartCoroutine(Dash(25f, 90f));
+        }
+               
+        Walk(walkSpeed);   
+    }
 
-        Walk(speed);      
+    public virtual IEnumerator Dash(float dashForce, float direction)
+    {
+        Vector3 dashDirection = Quaternion.Euler(0f, transform.eulerAngles.y + direction, 0f) * Vector3.forward;
+
+        currentImpact += dashDirection.normalized * dashForce / mass;
+
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    void RotatePlayer()
+    {
+        float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, CalculateDirectionAngle(), ref turnSmoothVelocity, turnSmoothTime);
+
+        if (direction.z > 0.5f)
+            transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
+        else
+            transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);  
+    }
+
+    float CalculateDirectionAngle()
+    {
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+
+        return targetAngle;
     }
 
     protected void Walk(float speed)
@@ -63,8 +94,10 @@ public class Player_Controller : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            moveDir = CalculateMoveDir(direction);
+            float direction = CalculateDirectionAngle();
+            moveDir = Quaternion.Euler(0f, direction, 0f) * Vector3.forward;
             velocity = moveDir * speed;
+            RotatePlayer();
         }
 
         if (currentImpact.magnitude > 0.2f)
@@ -75,14 +108,5 @@ public class Player_Controller : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         currentImpact = Vector3.Lerp(currentImpact, Vector3.zero, damping * Time.deltaTime);
-    }
-
-    protected Vector3 CalculateMoveDir(Vector3 inputDirection)
-    {
-        float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-
-        return Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
     }   
 }
