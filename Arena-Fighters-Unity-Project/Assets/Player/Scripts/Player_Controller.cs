@@ -19,12 +19,18 @@ public class Player_Controller : MonoBehaviour
     public Vector3 direction;
     private CharacterController controller;
     private Transform cam;
+    public Transform groundCheck;
+    private float groundDistance = 0.4f;
+    public LayerMask groundMask;
     private float turnSmoothVelocity;
     private float turnSmoothTime = 0.05f;
+    private readonly float gravity = Physics.gravity.y;
     
     private Vector3 currentImpact;
     private float currentSpeed;
     private float dashBonus;
+    private float velocityY;
+    private bool isGrounded;
 
     [SerializeField] protected float frontSpeed;
     [SerializeField] protected float sideSpeed;
@@ -32,6 +38,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] protected float frontDashForce;
     [SerializeField] protected float sideDashForce;
     [SerializeField] protected float backDashForce;
+    [SerializeField] protected float jumpForce;
     [SerializeField] protected float damping;
     [SerializeField] protected float mass;
     
@@ -44,6 +51,7 @@ public class Player_Controller : MonoBehaviour
     void Update()
     {
         SetSpeed();
+        CheckIfGrounded();
 
         if (movementCommand.Equals(dashForward))
         {
@@ -61,8 +69,17 @@ public class Player_Controller : MonoBehaviour
         {
             StartCoroutine(Dash(sideDashForce * dashBonus, 90f));
         }
+        else if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            currentImpact += Vector3.up.normalized * jumpForce / mass;
+        }
                
         Walk(currentSpeed);   
+    }
+    
+    void CheckIfGrounded()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
     void SetSpeed()
@@ -112,16 +129,25 @@ public class Player_Controller : MonoBehaviour
 
     protected void Walk(float speed)
     {
-        Vector3 moveDir;
+        Vector3 moveDir = new Vector3();
         Vector3 velocity = new Vector3();
 
         if (direction.magnitude >= 0.1f)
         {
             float direction = CalculateDirectionAngle();
             moveDir = Quaternion.Euler(0f, direction, 0f) * Vector3.forward;
-            velocity = moveDir * speed;
+            
             RotatePlayer();
         }
+
+        velocity = moveDir * speed + Vector3.up * velocityY;
+
+        if (isGrounded && velocityY < 0f)
+        {
+            velocityY = 0f;
+        }
+
+        velocityY += gravity * Time.deltaTime;
 
         if (currentImpact.magnitude > 0.2f)
         {
