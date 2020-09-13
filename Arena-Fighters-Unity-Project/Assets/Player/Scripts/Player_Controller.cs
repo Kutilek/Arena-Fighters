@@ -20,6 +20,7 @@ public class Player_Controller : MonoBehaviour
 
     private CharacterController controller;
     private Transform cam;
+    private Transform arenaCenter;
     public Transform groundCheck;
     private LayerMask groundMask;
     private float turnSmoothVelocity;
@@ -30,10 +31,11 @@ public class Player_Controller : MonoBehaviour
     private bool isGrounded;
     private float currentSpeed;
     private float dashBonus;
-    private bool wallRun;
+    public bool wallRun;
+    public Vector3 velocity;
     
     private Vector3 currentImpact;
-    private float velocityY;
+    public float velocityY;
 
     [SerializeField] protected float frontSpeed;
     [SerializeField] protected float sideSpeed;
@@ -49,6 +51,7 @@ public class Player_Controller : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        arenaCenter = GameObject.FindGameObjectWithTag("ArenaCenter").transform;
         groundMask = LayerMask.GetMask("Ground");
     }
 
@@ -79,6 +82,22 @@ public class Player_Controller : MonoBehaviour
 
             moveDir = cam.transform.TransformDirection(direction);
         }
+        else
+        {
+            if (Mathf.Abs(direction.x) > 0.5f)
+            {
+                float targetAngle = Mathf.Atan2(direction.x, 0f) * Mathf.Rad2Deg;
+                moveDir = Quaternion.Euler(0f, transform.eulerAngles.y - targetAngle, 0f) * Vector3.forward * 5f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * Vector3.forward, 100f);
+                StopCoroutine(WallRun());
+                wallRun = false;
+            }
+
+        }
 
         velocity = moveDir * currentSpeed + Vector3.up * velocityY;
         
@@ -100,9 +119,11 @@ public class Player_Controller : MonoBehaviour
         wallRun = true;
         velocityY = 0f;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(80f);
 
+        velocityY -= 5f;
         wallRun = false;
+
     }
 
     public virtual void HandleCurrentImpact()
@@ -113,9 +134,7 @@ public class Player_Controller : MonoBehaviour
         }
 
         currentImpact = Vector3.Lerp(currentImpact, Vector3.zero, damping * Time.deltaTime);
-    }
-
-    private Vector3 velocity;
+    } 
 
     public void Jump()
     {
@@ -127,7 +146,7 @@ public class Player_Controller : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.transform.tag == "Wall" && !isGrounded)
+        if (hit.transform.tag == "Wall" && !isGrounded && velocity.y > -5f)
         {
             StartCoroutine(WallRun());
         }
@@ -193,15 +212,26 @@ public class Player_Controller : MonoBehaviour
 
     void RotatePlayer()
     {
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-        float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
-        if (direction.magnitude >= 0.1f)
+        
+        if (!wallRun)
         {
-            if (direction.z > 0.5f)
-                transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
-            else
-                transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);  
-        }       
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+            if (direction.magnitude >= 0.1f)
+            {
+                if (direction.z > 0.5f)
+                    transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
+                else
+                    transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);  
+            } 
+        }
+        else
+        {
+            transform.LookAt(arenaCenter);
+            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+        }
+              
     }
 }
