@@ -7,7 +7,7 @@ public abstract class Input_Handler : MonoBehaviour
     protected KeyCode helperKey;
     private KeyCode lastPressed;
     private float doublePressTimer;
-    [SerializeField] private float doublePressTime;
+    [SerializeField] protected float doublePressTime;
     
     protected virtual void Start()
     {

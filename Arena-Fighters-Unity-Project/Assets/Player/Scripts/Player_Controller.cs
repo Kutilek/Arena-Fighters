@@ -3,20 +3,22 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-    #region Movement Commands
+    #region Movement Inputs
 
+    // Commands
     private Command dashForward = new Command(KeyCode.W, false, true);
     private Command dashLeft = new Command(KeyCode.A, false, true);
     private Command dashBackward = new Command(KeyCode.S, false, true);
     private Command dashRight = new Command(KeyCode.D, false, true);
     private Command jump = new Command(KeyCode.Space, false, false);
 
-    public Command movementCommand;
+    // Current Inputs
+    public Command pressMovementCommand;
+    public Command doublePressMovementCommand;
+    public Vector3 direction;
+    public bool moveHelperKeyPressed;
 
     #endregion
-
-    public bool moveHelperKeyPressed;
-    public Vector3 direction;
 
     private CharacterController controller;
     private Transform cam;
@@ -63,19 +65,19 @@ public class Player_Controller : MonoBehaviour
         {
             HandleGravity();
 
-            if (movementCommand.Equals(dashForward))
+            if (doublePressMovementCommand.Equals(dashForward))
             {
                 StartCoroutine(Dash(frontDashForce * dashBonus, 0f));
             }
-            else if (movementCommand.Equals(dashBackward))
+            else if (doublePressMovementCommand.Equals(dashBackward))
             {
                 StartCoroutine(Dash(backDashForce * dashBonus, 180f));
             }
-            else if (movementCommand.Equals(dashLeft))
+            else if (doublePressMovementCommand.Equals(dashLeft))
             {
                 StartCoroutine(Dash(sideDashForce * dashBonus, 270f));
             }   
-            else if (movementCommand.Equals(dashRight))
+            else if (doublePressMovementCommand.Equals(dashRight))
             {
                 StartCoroutine(Dash(sideDashForce * dashBonus, 90f));
             }

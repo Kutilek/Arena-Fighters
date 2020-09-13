@@ -12,7 +12,8 @@ public class Movement_Input_Handler : Input_Handler
     void Update()
     {
         playerController.moveHelperKeyPressed = GetHelperKeyPressed();
-        playerController.movementCommand = CreateDoublePressCommand(inputKeys);
+        playerController.doublePressMovementCommand = CreateDoublePressCommand(inputKeys);
+        playerController.pressMovementCommand = CreatePressCommand(inputKeys);
         playerController.direction = GetMoveDirection();
     }
 
