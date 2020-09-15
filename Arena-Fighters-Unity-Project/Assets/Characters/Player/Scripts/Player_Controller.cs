@@ -77,7 +77,11 @@ public class Player_Controller : MonoBehaviour
             else if (doublePressMovementCommand.Equals(dashRight))
                 StartCoroutine(Dash(sideDashForce * dashBonus));
 
-            moveDir = cam.transform.TransformDirection(direction);
+            if (direction.magnitude > 0.1f)
+            {
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+                moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            }
             RotatePlayer();
         }
         else
@@ -107,7 +111,7 @@ public class Player_Controller : MonoBehaviour
                 Jump();         
         }
         else
-            AddGravity(); 
+            AddGravity();
 
         CalculateCurrentImpact();
         controller.Move(velocity * Time.deltaTime);
@@ -164,11 +168,6 @@ public class Player_Controller : MonoBehaviour
 
     private void AddGravity()
     {
-        if (isGrounded && velocityY < 0f)
-        {
-            velocityY = 0f;
-        }
-
         velocityY += gravity * 1.5f * Time.deltaTime;
     }
 
