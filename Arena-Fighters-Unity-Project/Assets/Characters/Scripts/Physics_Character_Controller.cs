@@ -4,6 +4,7 @@ public abstract class Physics_Character_Controller : MonoBehaviour
 {
     private readonly float gravity = Physics.gravity.y;
     private const float gravityMultiplier = 1.8246f;
+    private const float gravityOnGround = -0.5f;
     protected CharacterController controller;
 
     // Ground Checking
@@ -28,7 +29,7 @@ public abstract class Physics_Character_Controller : MonoBehaviour
 
     protected virtual void Start()
     {
-        controller = GetComponent<CharacterController>();        
+        controller = GetComponent<CharacterController>();
         groundMask = LayerMask.GetMask("Ground");
         groundCheck = transform.Find("GroundCheck");
     }
@@ -38,7 +39,7 @@ public abstract class Physics_Character_Controller : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded)
         {
-            currentFallSpeed = -0.1f;
+            currentFallSpeed = gravityOnGround;
             falling = false;
         }
     }
