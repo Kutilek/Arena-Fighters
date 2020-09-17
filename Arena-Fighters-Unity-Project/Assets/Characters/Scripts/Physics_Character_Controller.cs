@@ -39,8 +39,9 @@ public abstract class Physics_Character_Controller : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded)
         {
-            currentFallSpeed = gravityOnGround;
             falling = false;
+            ResetImpactY();
+            currentFallSpeed = gravityOnGround;
         }
     }
 
@@ -69,5 +70,10 @@ public abstract class Physics_Character_Controller : MonoBehaviour
     protected void ResetImpact()
     {
         currentImpact = Vector3.zero;
+    }
+
+    protected void ResetImpactY()
+    {
+        currentImpact.y = 0f;
     }
 }
