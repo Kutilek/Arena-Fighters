@@ -14,7 +14,7 @@ public class Movement_Input_Handler : Input_Handler
         playerController.moveHelperKeyPressed = GetHelperKeyPressed();
         playerController.doublePressMovementCommand = CreateDoublePressCommand(inputKeys);
         playerController.pressMovementCommand = CreatePressCommand(inputKeys);
-        playerController.direction = GetMoveDirection();
+        playerController.inputDirection = GetMoveDirection();
     }
 
     Vector3 GetMoveDirection()

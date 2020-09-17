@@ -40,7 +40,6 @@ public abstract class Physics_Character_Controller : MonoBehaviour
         if (isGrounded)
         {
             falling = false;
-            ResetImpactY();
             currentFallSpeed = gravityOnGround;
         }
     }
@@ -49,7 +48,7 @@ public abstract class Physics_Character_Controller : MonoBehaviour
     {
         velocity = direction.normalized * currentSpeed + Vector3.up * currentFallSpeed;
 
-        if (currentImpact.magnitude > 0.2f)
+        if (currentImpact.magnitude > 1f)
             velocity += currentImpact;
 
         currentImpact = Vector3.Lerp(currentImpact, Vector3.zero, damping * Time.deltaTime);
