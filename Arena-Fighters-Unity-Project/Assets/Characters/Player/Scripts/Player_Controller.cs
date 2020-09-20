@@ -23,6 +23,7 @@ public class Player_Controller : Physics_Character_Controller
     // Transforms needed for player movement
     private Transform cam;
     private Transform arenaCenter;
+    private Transform closestEnemy;
 
     #region Movement Values
 
@@ -46,12 +47,10 @@ public class Player_Controller : Physics_Character_Controller
     
     #endregion
     
-    
     [SerializeField] protected float maxStamina;
     [SerializeField] protected float dashStaminaCost;
     private float currentStamina;
     private bool running;
-
 
     protected override void Start()
     {
@@ -71,6 +70,7 @@ public class Player_Controller : Physics_Character_Controller
     {
         Vector3 moveDir = new Vector3();
 
+        LoadClosestEnemy();
         CheckIfGrounded();
 
         if (!onWall)
@@ -107,6 +107,20 @@ public class Player_Controller : Physics_Character_Controller
             AddGravity();
 
         MoveCharacter(moveDir);
+    }
+
+    protected void LoadClosestEnemy()
+    {  
+        bool isEnemyClose = Physics.CheckSphere(transform.position, 5f, LayerMask.GetMask("Enemy"));
+
+        if (isEnemyClose)
+        {
+            Collider[] collider = Physics.OverlapSphere(transform.position, 5f, LayerMask.GetMask("Enemy"));
+            foreach (Collider col in collider)
+                closestEnemy = col.transform;
+        }
+        else
+            closestEnemy = null;
     }
 
     #region Ground Movement
@@ -255,7 +269,7 @@ public class Player_Controller : Physics_Character_Controller
 
     private void JumpOffWall()
     {
-        AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * Vector3.forward, jumpForce * 2f);
+        AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 0.5f, 1f), jumpForce * 2f);
         StopCoroutine(OnWallEnter());
         onWall = false;
     }
