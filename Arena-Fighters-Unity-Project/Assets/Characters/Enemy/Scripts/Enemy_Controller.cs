@@ -5,6 +5,8 @@ public class Enemy_Controller : Physics_Character_Controller
 {
     private Transform player;
     private Vector3 direction;
+    private Vector3 directionToPlayer;
+    private float distanceToPlayer;
 
     protected override void Start()
     {
@@ -19,6 +21,8 @@ public class Enemy_Controller : Physics_Character_Controller
     protected void Update()
     {
         CheckIfGrounded();
+        directionToPlayer = (transform.position - player.transform.position).normalized;
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         currentSpeed = 5f;
 
