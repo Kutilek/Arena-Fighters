@@ -60,6 +60,11 @@ public class Player_Controller : Physics_Character_Controller
         currentStamina = maxStamina;
     }
 
+    protected void Awake()
+    {
+        currentStamina = maxStamina;
+    }
+
     protected void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.transform.tag == "Wall" && !isGrounded && velocity.y > -5f && falling)
@@ -227,15 +232,7 @@ public class Player_Controller : Physics_Character_Controller
     {
         dashBonus = 1.65f;
         return dashBonus;
-    }
-
-    private IEnumerator ResetStaminaPoints(float pointsToAdd)
-    {
-        yield return new WaitForSeconds(2f);
-
-        if (currentStamina < maxStamina)
-            currentStamina += pointsToAdd;
-    }
+    }  
 
     #endregion
 
@@ -275,4 +272,13 @@ public class Player_Controller : Physics_Character_Controller
     }
 
     #endregion
+
+    // Stamina Functions
+    private IEnumerator ResetStaminaPoints(float pointsToAdd)
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (currentStamina < maxStamina)
+            currentStamina += pointsToAdd;
+    }
 }

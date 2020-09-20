@@ -21,14 +21,26 @@ public class Enemy_Controller : Physics_Character_Controller
     protected void Update()
     {
         CheckIfGrounded();
-        directionToPlayer = (transform.position - player.transform.position).normalized;
-        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        directionToPlayer = GetDirectionToPlayer();
+        distanceToPlayer = GetDistanceToPlayer();
 
         currentSpeed = 5f;
 
         MoveCharacter(direction);
         
         RotateOnGround();
+    }
+
+    protected Vector3 GetDirectionToPlayer()
+    {
+        Vector3 direction = (transform.position - player.transform.position).normalized;
+        return direction;
+    }
+
+    protected float GetDistanceToPlayer()
+    {
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        return distance;
     }
 
     private void Jump()
