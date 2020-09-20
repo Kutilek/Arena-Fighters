@@ -1,0 +1,7 @@
+Step 1: Think about enemy category (Light Weight, Middle Weight or Heavy Weight)
+
+Step 2: Write a short description about that character (1-4 sentences)
+
+Step 3: Start with first Concept Art iteration cycle.
+
+Step 4: Think about the game design, what will the enemy do, how it will interact with other enemies, player and so on. 
