@@ -46,11 +46,19 @@ public class Player_Controller : Physics_Character_Controller
     
     #endregion
     
+    
+    [SerializeField] protected float maxStamina;
+    [SerializeField] protected float dashStaminaCost;
+    private float currentStamina;
+    private bool running;
+
+
     protected override void Start()
     {
         base.Start();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         arenaCenter = GameObject.FindGameObjectWithTag("ArenaCenter").transform;
+        currentStamina = maxStamina;
     }
 
     protected void OnControllerColliderHit(ControllerColliderHit hit)
@@ -74,6 +82,8 @@ public class Player_Controller : Physics_Character_Controller
 
             CheckForDashInput();
             RotateOnGround();
+            if (!running)
+                StartCoroutine(ResetStaminaPoints(0.01f));
         }
         else
         {
@@ -130,10 +140,14 @@ public class Player_Controller : Physics_Character_Controller
         Vector3 dashDirection = Quaternion.Euler(0f, transform.eulerAngles.y + targetAngle, 0f) * Vector3.forward;
 
         AddForce(dashDirection, dashForce);
+        currentStamina -= dashStaminaCost;
+
+        float staminaToRestore = dashStaminaCost;
 
         yield return new WaitForSeconds(dashDuration);
 
         ResetImpact();
+        StartCoroutine(ResetStaminaPoints(staminaToRestore));
     }
 
     private void CheckForDashInput()
@@ -152,6 +166,7 @@ public class Player_Controller : Physics_Character_Controller
     {
         AddForce(Vector3.up, jumpForce);
         falling = true;
+        currentStamina -= 1f;
 
         yield return new WaitUntil(() => isGrounded && !falling);
 
@@ -170,8 +185,18 @@ public class Player_Controller : Physics_Character_Controller
     
         if (moveHelperKeyPressed)
         {
+            running = true;
+            dashStaminaCost = 3f;
             currentSpeed = CalculateSpeedBonus(currentSpeed);
             dashBonus = CalculateDashBonus(dashBonus);
+            
+            if (inputDirection.magnitude > 0.1f)
+                currentStamina -= 0.01f;
+        }
+        else
+        {
+            running = false;
+            dashStaminaCost = 2f;
         }
     }
 
@@ -188,6 +213,14 @@ public class Player_Controller : Physics_Character_Controller
     {
         dashBonus = 1.65f;
         return dashBonus;
+    }
+
+    private IEnumerator ResetStaminaPoints(float pointsToAdd)
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (currentStamina < maxStamina)
+            currentStamina += pointsToAdd;
     }
 
     #endregion

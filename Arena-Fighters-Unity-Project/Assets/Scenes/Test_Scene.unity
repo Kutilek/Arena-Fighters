@@ -412,7 +412,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.10609455, y: 0.000000027361864, z: -0.0000000029194216, w: 0.9943561}
+  m_LocalRotation: {x: 0.10609455, y: -0.000000027361864, z: 0.0000000029194216, w: 0.9943561}
   m_LocalPosition: {x: 18.5, y: 6.0413713, z: -8.550743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -561,11 +561,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000042702233
+      value: 0.000000004270223
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 5.1857046e-10
+      value: -5.185704e-10
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -577,11 +577,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6731083332112321972, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001764256
+      value: -0.00000001764256
       objectReference: {fileID: 0}
     - target: {fileID: 6731083332112321972, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000018175124
+      value: 0.0000000018175121
       objectReference: {fileID: 0}
     - target: {fileID: 6731083332112321972, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -733,6 +733,14 @@ PrefabInstance:
     - target: {fileID: 5127110245192932390, guid: 40035152ed533804e9bb8682a27df635, type: 3}
       propertyPath: wallSpeed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5127110245192932390, guid: 40035152ed533804e9bb8682a27df635, type: 3}
+      propertyPath: maxStamina
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5127110245192932390, guid: 40035152ed533804e9bb8682a27df635, type: 3}
+      propertyPath: dashStaminaCost
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40035152ed533804e9bb8682a27df635, type: 3}
