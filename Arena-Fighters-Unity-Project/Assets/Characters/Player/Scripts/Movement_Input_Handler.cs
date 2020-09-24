@@ -9,7 +9,7 @@ public class Movement_Input_Handler : Input_Handler
         inputKeys = new KeyCode[5] {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
     }
 
-    void Update()
+    private void Update()
     {
         playerController.moveHelperKeyPressed = GetHelperKeyPressed();
         playerController.doublePressMovementCommand = CreateDoublePressCommand(inputKeys);
@@ -17,7 +17,7 @@ public class Movement_Input_Handler : Input_Handler
         playerController.inputDirection = GetMoveDirection();
     }
 
-    Vector3 GetMoveDirection()
+    private Vector3 GetMoveDirection()
     {
         float ad = Input.GetAxisRaw("Horizontal");
         float ws = Input.GetAxisRaw("Vertical");
