@@ -32,6 +32,16 @@ public abstract class Input_Handler : MonoBehaviour
         return new Command();
     }
 
+    protected virtual Command CreateReleaseCommand(KeyCode[] inputKeys)
+    {
+        foreach(KeyCode inputKey in inputKeys)
+        {
+            if (Input.GetKeyUp(inputKey))
+                return new Command(inputKey, true, false);
+        }
+        return new Command();
+    }
+
     protected virtual Command CreateDoublePressCommand(KeyCode[] inputKeys)
     {
         foreach(KeyCode inputKey in inputKeys)
