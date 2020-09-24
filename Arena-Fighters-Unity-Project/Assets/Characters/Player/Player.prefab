@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 5127110245192932391}
   - component: {fileID: 5127110245192932390}
   - component: {fileID: 5127110245192932385}
+  - component: {fileID: 2757228660972938174}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -253,20 +254,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e763942fc7e05a14ca6ddc26b369aead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
-  moveHelperKeyPressed: 0
-  groundCheck: {fileID: 5127110243436892456}
   damping: 6
   mass: 2
+  inputDirection: {x: 0, y: 0, z: 0}
+  moveHelperKeyPressed: 0
   frontSpeed: 5
   sideSpeed: 3
   backSpeed: 1
+  wallSpeed: 0
+  jumpForce: 75
   frontDashForce: 62
   sideDashForce: 31
   backDashForce: 15
-  jumpForce: 75
-  wallRunDuration: 2
   dashDuration: 0.2
+  onWallDuration: 0
+  maxStamina: 0
+  dashStaminaCost: 0
+  attackHelperKeyPressed: 0
+  mouseScroll: 0
 --- !u!143 &5127110245192932385
 CharacterController:
   m_ObjectHideFlags: 0
@@ -285,3 +290,16 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2757228660972938174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127110245192932384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122e08dfc14735642bbb0d17c1acf68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doublePressTime: 0

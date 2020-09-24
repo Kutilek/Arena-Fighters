@@ -5,14 +5,14 @@ public class Player_Controller : Physics_Character_Controller
 {
     #region Movement Inputs
 
-    // Commands
+    // Movement Commands
     private Command dashForwardCommand = new Command(KeyCode.W, false, true);
     private Command dashLeftCommand = new Command(KeyCode.A, false, true);
     private Command dashBackwardCommand = new Command(KeyCode.S, false, true);
     private Command dashRightCommand = new Command(KeyCode.D, false, true);
     private Command jumpCommand = new Command(KeyCode.Space, false, false);
 
-    // Current Inputs
+    // Current Movement Inputs
     public Command pressMovementCommand;
     public Command doublePressMovementCommand;
     public Vector3 inputDirection;
@@ -44,13 +44,32 @@ public class Player_Controller : Physics_Character_Controller
     [SerializeField] protected float onWallDuration;
 
     private float dashBonus = 1f;
-    
+
     #endregion
-    
+
     [SerializeField] protected float maxStamina;
     [SerializeField] protected float dashStaminaCost;
     private float currentStamina;
     private bool running;
+
+    #region Attack Inputs
+
+    // Attack Commands
+    private Command lightAttackCommand = new Command(KeyCode.Mouse0, false, false);
+    private Command heavyAttackCommand = new Command(KeyCode.Mouse1, false, false);
+    private Command specialAttackCommand = new Command(KeyCode.Mouse2, false, false);
+    private Command actionOneStartCommand = new Command(KeyCode.Q, false, false);
+    private Command actionOneEndCommand = new Command(KeyCode.Q, true, false);
+    private Command actionTwoStartCommand = new Command(KeyCode.E, false, false);
+    private Command actionThreeStartCommand = new Command(KeyCode.F, false, false);
+
+    // Current Attack Inputs
+    public Command pressAttackCommand;
+    public Command releaseAttackCommand;
+    public bool attackHelperKeyPressed;
+    public float mouseScroll;
+
+    #endregion
 
     protected override void Start()
     {
