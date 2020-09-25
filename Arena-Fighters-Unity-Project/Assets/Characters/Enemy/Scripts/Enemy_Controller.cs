@@ -8,6 +8,7 @@ public class Enemy_Controller : Physics_Character_Controller
     private Vector3 directionToPlayer;
     private float distanceToPlayer;
     private bool followPlayer;
+    [SerializeField] protected float playerDashDistance;
 
     protected override void Start()
     {
@@ -25,6 +26,9 @@ public class Enemy_Controller : Physics_Character_Controller
         directionToPlayer = GetDirectionToPlayer();
         distanceToPlayer = GetDistanceToPlayer();
 
+        if (distanceToPlayer <= playerDashDistance)
+            StartCoroutine(DashToPlayer());
+            
         SetDirection();
 
         currentSpeed = 5f;
@@ -32,6 +36,15 @@ public class Enemy_Controller : Physics_Character_Controller
         MoveCharacter(direction);
         
         RotateOnGround();
+    }
+
+    protected IEnumerator DashToPlayer()
+    {
+        AddForce(directionToPlayer, 20f);
+
+        yield return new WaitForSeconds(0.1f);
+
+        ResetImpact();
     }
 
     protected void SetDirection()

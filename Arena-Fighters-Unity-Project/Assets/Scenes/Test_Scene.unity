@@ -243,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damping: 2
   mass: 3
+  playerDashDistance: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damping: 2
   mass: 3
+  playerDashDistance: 10
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,24 +843,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5127110244806869281, guid: 40035152ed533804e9bb8682a27df635, type: 3}
   m_PrefabInstance: {fileID: 1796446101}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1796446103 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5127110245192932384, guid: 40035152ed533804e9bb8682a27df635, type: 3}
-  m_PrefabInstance: {fileID: 1796446101}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1796446104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1796446103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122e08dfc14735642bbb0d17c1acf68c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doublePressTime: 0
 --- !u!1001 &8357181211941423361
 PrefabInstance:
   m_ObjectHideFlags: 0
