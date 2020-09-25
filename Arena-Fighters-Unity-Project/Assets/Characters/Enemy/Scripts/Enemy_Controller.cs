@@ -24,11 +24,18 @@ public class Enemy_Controller : Physics_Character_Controller
         directionToPlayer = GetDirectionToPlayer();
         distanceToPlayer = GetDistanceToPlayer();
 
+        SetDirection();
+
         currentSpeed = 5f;
 
         MoveCharacter(direction);
         
         RotateOnGround();
+    }
+
+    protected void SetDirection()
+    {   
+        direction = new Vector3();
     }
 
     protected Vector3 GetDirectionToPlayer()
