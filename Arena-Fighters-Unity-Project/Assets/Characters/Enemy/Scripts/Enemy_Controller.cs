@@ -7,6 +7,7 @@ public class Enemy_Controller : Physics_Character_Controller
     private Vector3 direction;
     private Vector3 directionToPlayer;
     private float distanceToPlayer;
+    private bool followPlayer;
 
     protected override void Start()
     {
@@ -34,14 +35,17 @@ public class Enemy_Controller : Physics_Character_Controller
     }
 
     protected void SetDirection()
-    {   
-        direction = new Vector3();
+    {
+        if (followPlayer)
+            direction = directionToPlayer;
+        else
+            direction = new Vector3();
     }
 
     protected Vector3 GetDirectionToPlayer()
     {
         Vector3 direction = (transform.position - player.transform.position).normalized;
-        return direction;
+        return -direction;
     }
 
     protected float GetDistanceToPlayer()
