@@ -22,7 +22,6 @@ public class Player_Controller : Physics_Character_Controller
 
     // Transforms needed for player movement
     private Transform cam;
-    private Transform arenaCenter;
     private Transform closestEnemy;
 
     #region Movement Values
@@ -69,8 +68,7 @@ public class Player_Controller : Physics_Character_Controller
     protected override void Start()
     {
         base.Start();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        arenaCenter = GameObject.FindGameObjectWithTag("ArenaCenter").transform;
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;    
     }
 
     protected void OnControllerColliderHit(ControllerColliderHit hit)

@@ -6,6 +6,7 @@ public abstract class Physics_Character_Controller : MonoBehaviour
     private const float gravityMultiplier = 1.8246f;
     private const float gravityOnGround = -0.5f;
     protected CharacterController controller;
+    protected Transform arenaCenter;
 
     // Ground Checking
     protected Transform groundCheck;
@@ -32,6 +33,7 @@ public abstract class Physics_Character_Controller : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundMask = LayerMask.GetMask("Ground");
         groundCheck = transform.Find("GroundCheck");
+        arenaCenter = GameObject.FindGameObjectWithTag("ArenaCenter").transform;
     }
 
     protected void CheckIfGrounded()
