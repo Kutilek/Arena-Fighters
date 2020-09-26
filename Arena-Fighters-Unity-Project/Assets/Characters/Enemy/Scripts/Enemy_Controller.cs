@@ -6,9 +6,11 @@ public class Enemy_Controller : Physics_Character_Controller
     private Transform player;
     private Vector3 direction;
     private Vector3 directionToPlayer;
+    private Vector3 directionToWall;
     private float distanceToPlayer;
     private float lastDashTime;
     private bool followPlayer;
+    private bool runToWall;
     [SerializeField] protected float playerDashDistance;
     [SerializeField] protected float dashCooldown;
 
@@ -25,7 +27,8 @@ public class Enemy_Controller : Physics_Character_Controller
     protected void Update()
     {
         CheckIfGrounded();
-        directionToPlayer = GetDirectionToPlayer();
+        directionToPlayer = GetDirectionToObject(player);
+        directionToWall = GetDirectionToObject(arenaCenter);
         distanceToPlayer = GetDistanceToPlayer();
 
         if (distanceToPlayer <= playerDashDistance && Time.time - lastDashTime > dashCooldown)
@@ -53,15 +56,17 @@ public class Enemy_Controller : Physics_Character_Controller
     protected void SetDirection()
     {
         if (followPlayer)
-            direction = directionToPlayer;
+            direction = -directionToPlayer;
+        else if (runToWall)
+            direction = directionToWall;
         else
             direction = new Vector3();
     }
 
-    protected Vector3 GetDirectionToPlayer()
+    protected Vector3 GetDirectionToObject(Transform obj)
     {
-        Vector3 direction = (transform.position - player.transform.position).normalized;
-        return -direction;
+        Vector3 direction = (transform.position - obj.transform.position).normalized;
+        return direction;
     }
 
     protected float GetDistanceToPlayer()
