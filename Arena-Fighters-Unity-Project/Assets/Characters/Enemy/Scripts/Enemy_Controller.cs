@@ -7,8 +7,10 @@ public class Enemy_Controller : Physics_Character_Controller
     private Vector3 direction;
     private Vector3 directionToPlayer;
     private float distanceToPlayer;
+    private float lastDashTime;
     private bool followPlayer;
     [SerializeField] protected float playerDashDistance;
+    [SerializeField] protected float dashCooldown;
 
     protected override void Start()
     {
@@ -26,7 +28,7 @@ public class Enemy_Controller : Physics_Character_Controller
         directionToPlayer = GetDirectionToPlayer();
         distanceToPlayer = GetDistanceToPlayer();
 
-        if (distanceToPlayer <= playerDashDistance)
+        if (distanceToPlayer <= playerDashDistance && Time.time - lastDashTime > dashCooldown)
             StartCoroutine(DashToPlayer());
             
         SetDirection();
@@ -41,9 +43,10 @@ public class Enemy_Controller : Physics_Character_Controller
     protected IEnumerator DashToPlayer()
     {
         AddForce(directionToPlayer, 20f);
-
-        yield return new WaitForSeconds(0.1f);
-
+        
+        yield return new WaitForSeconds(0.2f);
+ 
+        lastDashTime = Time.time;
         ResetImpact();
     }
 
