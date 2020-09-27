@@ -244,7 +244,6 @@ MonoBehaviour:
   damping: 2
   mass: 3
   playerDashDistance: 10
-  dashCooldown: 5
   moveRandomCommand:
     isAble: 0
     cooldown: 5
@@ -255,6 +254,21 @@ MonoBehaviour:
     cooldown: 7
     duration: 7
     randomChance: 40
+  dashToPlayerCommand:
+    isAble: 0
+    cooldown: 5
+    duration: 2
+    randomChance: 50
+  runToWallCommand:
+    isAble: 0
+    cooldown: 20
+    duration: 0
+    randomChance: 33
+  jumpOffWallCommand:
+    isAble: 0
+    cooldown: 0.5
+    duration: 0
+    randomChance: 10
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +511,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.15634125, y: 0.1289695, z: -0.020595131, w: 0.97903025}
+  m_LocalRotation: {x: 0.15634127, y: 0.12896952, z: -0.020595135, w: 0.97903025}
   m_LocalPosition: {x: 10.2765255, y: 6.041107, z: -28.41455}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -650,15 +664,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17057142
+      value: 0.17057143
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.12865612
+      value: 0.12865615
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.022469692
+      value: -0.022469698
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.w

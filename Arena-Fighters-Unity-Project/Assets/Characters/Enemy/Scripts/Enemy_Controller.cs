@@ -9,15 +9,8 @@ public class Enemy_Controller : Physics_Character_Controller
     private Vector3 directionToWall;
     private float distanceToPlayer;
     private float distanceToWall;
-    private float lastDashTime;
-    private bool runToWall;
-    [SerializeField] protected float playerDashDistance;
-    [SerializeField] protected float dashCooldown;
 
-    protected override void Start()
-    {
-        base.Start();
-    }
+    [SerializeField] protected float playerDashDistance;
 
     protected void Awake()
     {
@@ -56,6 +49,11 @@ public class Enemy_Controller : Physics_Character_Controller
         if (direction == Vector3.zero)
             direction = SetRandomDirection(); 
 
+        if (distanceToPlayer <= 15f)
+            transform.LookAt(player);
+        else
+            RotateOnGround();
+
         yield return new WaitForSecondsRealtime(moveRandomCommand.duration);
 
         direction = Vector3.zero;
@@ -70,12 +68,30 @@ public class Enemy_Controller : Physics_Character_Controller
     {
         StopCoroutine(MoveRandom());
         direction = directionToPlayer;
+        
+        RotateOnGround();
 
         yield return new WaitForSecondsRealtime(followPlayerCommand.duration);
 
         direction = Vector3.zero;
         followPlayerCommand.isAble = false;
     }
+
+    [SerializeField] private EnemyCommand dashToPlayerCommand;
+
+    protected IEnumerator DashToPlayer()
+    {
+        AddForce(directionToPlayer, 20f);
+        
+        yield return new WaitForSeconds(0.2f);
+
+        dashToPlayerCommand.isAble = false;
+        ResetImpact();
+    }
+
+    [SerializeField] private EnemyCommand runToWallCommand;
+
+    private bool calculateChances = true;
 
     protected void Update()
     {
@@ -85,115 +101,90 @@ public class Enemy_Controller : Physics_Character_Controller
         distanceToPlayer = GetDistanceToObject(player);
         distanceToWall = GetDistanceToObject(arenaCenter);
 
-        if (!moveRandomCommand.isAble)
-            moveRandomCommand.CalculateChance();     
-        else 
+        if (calculateChances)
+        {
+            moveRandomCommand.CalculateChance();
+            followPlayerCommand.CalculateChance();
+            dashToPlayerCommand.CalculateChance();
+            runToWallCommand.CalculateChance();
+        }
+        
+        dashToPlayerCommand.ResetIsAble();
+
+        if (moveRandomCommand.isAble)
             StartCoroutine(MoveRandom());
 
-        followPlayerCommand.CalculateChance();
-
         if (followPlayerCommand.isAble)
+        {
             StartCoroutine(FollowPlayer());
+            if (distanceToPlayer <= playerDashDistance && dashToPlayerCommand.isAble)
+                StartCoroutine(DashToPlayer());
+        }
 
-            
-        
-/*
-        if (distanceToPlayer <= playerDashDistance && Time.time - lastDashTime > dashCooldown)
-            StartCoroutine(DashToPlayer());
-            
-        SetDirection();
+        if (runToWallCommand.isAble)
+        {
+            calculateChances = false;
+            StopAllCoroutines();
+            moveRandomCommand.isAble = false;
+            followPlayerCommand.isAble = false;
+            dashToPlayerCommand.isAble = false;
+            RotateOnGround();
 
-        if (Input.GetKey(KeyCode.V))
-            moveRandomly = true;
-        else
-        {
-            moveRandomly = false;
-            RandomX = 0f;
-            RandomZ = 0f;
-        }*/
-            
-        if (!falling)
-        {
-            if (runToWall && distanceToWall > 29.5f && isGrounded)
+            direction = directionToWall; 
+            if (distanceToWall > 29.5f && isGrounded)
                 StartCoroutine(JumpOffGround());
         }
-        else
+
+        if (onWall)
+        {
+            jumpOffWallCommand.CalculateChance();
+            if (jumpOffWallCommand.isAble)
+                JumpOffWall();
+        }
+
+        if (falling)
             AddGravity();
 
-        currentSpeed = 5f;
+        currentSpeed = 4f;
 
         MoveCharacter(direction);
-        
-        RotateOnGround();
     }
 
-    protected IEnumerator DashToPlayer()
-    {
-        AddForce(directionToPlayer, 20f);
-        
-        yield return new WaitForSeconds(0.2f);
- 
-        lastDashTime = Time.time;
-        ResetImpact();
-    }
+    [SerializeField] private EnemyCommand jumpOffWallCommand;
 
     private IEnumerator OnWallEnter()
     {
         onWall = true;
         falling = false;
         currentFallSpeed = 0f;
+        direction = Vector3.zero;
+        runToWallCommand.isAble = false;
+        
+        transform.LookAt(arenaCenter);
+        transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+        direction = CalculateDirectionOnWall();
 
         yield return new WaitForSeconds(5f);
 
         onWall = false;
+        calculateChances = true;
         falling = true;
         currentFallSpeed -= 5f;
         RandomX = 0f;
+        direction = Vector3.zero;
     }
-
-    
-
-  /*  protected void SetDirection()
-    {
-        if (!onWall)
-        {
-            if (followPlayer)
-                direction = directionToPlayer;
-            else if (runToWall)
-                direction = directionToWall;
-            else if (moveRandomly)
-            {
-                if (distanceToWall > 25f)
-                    direction = -directionToWall;
-                else if(RandomX == 0f || RandomZ == 0f)
-                {
-                    RandomX = Random.Range(-1f, 1f);
-                    RandomZ = Random.Range(-1f, 1f);
-
-                    direction = new Vector3(RandomX, 0f, RandomZ);    
-                }      
-            }
-            else
-                direction = new Vector3();
-        }  
-        else
-        {
-            transform.LookAt(arenaCenter);
-            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
-            direction = CalculateDirectionOnWall();
-            chance = Random.Range(0f, 100f);
-            if (chance > 99f)
-                JumpOffWall();
-        }
-    }*/
 
     private void JumpOffWall()
     {
-        AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 0.5f, 1f), 25f * 2f);
+        currentFallSpeed -= 5f;
+        AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 0.5f, 1f), 50f * 2f);
         StopCoroutine(OnWallEnter());
         onWall = false;
-        falling = true;
+        calculateChances = true;
+        falling = true;  
         RandomX = 0f;
+        direction = Vector3.zero;
+        jumpOffWallCommand.isAble = false;
     }
 
     private Vector3 CalculateDirectionOnWall()
@@ -227,6 +218,7 @@ public class Enemy_Controller : Physics_Character_Controller
 
         ResetImpactY();
     }
+
     private float turnSmoothVelocity;
     private float turnSmoothTime = 0.05f;
     private void RotateOnGround()

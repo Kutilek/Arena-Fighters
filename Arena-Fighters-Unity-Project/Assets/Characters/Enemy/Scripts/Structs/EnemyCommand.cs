@@ -8,7 +8,7 @@ public struct EnemyCommand
     public float cooldown;
     public float duration;
     public float randomChance;
-    private float timer;  
+    private float timer;
 
     public EnemyCommand(float cooldown, float duration, float randomChance)
     {
@@ -26,10 +26,16 @@ public struct EnemyCommand
         if (timer >= cooldown)
         {  
             float random = UnityEngine.Random.Range(0f, 100f);
-            
+
             if (random <= randomChance)
                 isAble =  true;
             timer = 0f;
         }
+    }
+
+    public void ResetIsAble()
+    {
+        if (timer >= duration)
+            isAble = false;
     }
 }
