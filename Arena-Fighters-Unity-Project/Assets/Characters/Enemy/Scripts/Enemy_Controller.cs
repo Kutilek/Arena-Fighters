@@ -10,15 +10,13 @@ public class Enemy_Controller : Physics_Character_Controller
     private float distanceToPlayer;
     private float distanceToWall;
     private float lastDashTime;
-    private bool followPlayer;
     private bool runToWall;
-    public float chance;
     [SerializeField] protected float playerDashDistance;
     [SerializeField] protected float dashCooldown;
 
     protected override void Start()
     {
-        base.Start();    
+        base.Start();
     }
 
     protected void Awake()
@@ -32,6 +30,53 @@ public class Enemy_Controller : Physics_Character_Controller
             StartCoroutine(OnWallEnter());
     }
 
+    private float RandomX = 0f;
+    private float RandomZ = 0f;
+    [SerializeField] private EnemyCommand moveRandomCommand;
+
+    private Vector3 SetRandomDirection()
+    {
+        Vector3 dir = Vector3.zero;
+
+        if (distanceToWall >= 25f)
+            dir = -directionToWall;
+        else if(RandomX == 0f || RandomZ == 0f)
+        {
+            RandomX = Random.Range(-1f, 1f);
+            RandomZ = Random.Range(-1f, 1f);
+
+            dir = new Vector3(RandomX, 0f, RandomZ);
+        }
+
+        return dir;
+    }
+
+    private IEnumerator MoveRandom()
+    {
+        if (direction == Vector3.zero)
+            direction = SetRandomDirection(); 
+
+        yield return new WaitForSecondsRealtime(moveRandomCommand.duration);
+
+        direction = Vector3.zero;
+        RandomX = 0f;
+        RandomZ = 0f;
+        moveRandomCommand.isAble = false;
+    }
+
+    [SerializeField] private EnemyCommand followPlayerCommand;
+
+    private IEnumerator FollowPlayer()
+    {
+        StopCoroutine(MoveRandom());
+        direction = directionToPlayer;
+
+        yield return new WaitForSecondsRealtime(followPlayerCommand.duration);
+
+        direction = Vector3.zero;
+        followPlayerCommand.isAble = false;
+    }
+
     protected void Update()
     {
         CheckIfGrounded();
@@ -40,16 +85,33 @@ public class Enemy_Controller : Physics_Character_Controller
         distanceToPlayer = GetDistanceToObject(player);
         distanceToWall = GetDistanceToObject(arenaCenter);
 
+        if (!moveRandomCommand.isAble)
+            moveRandomCommand.CalculateChance();     
+        else 
+            StartCoroutine(MoveRandom());
+
+        followPlayerCommand.CalculateChance();
+
+        if (followPlayerCommand.isAble)
+            StartCoroutine(FollowPlayer());
+
+            
+        
+/*
         if (distanceToPlayer <= playerDashDistance && Time.time - lastDashTime > dashCooldown)
             StartCoroutine(DashToPlayer());
             
         SetDirection();
 
         if (Input.GetKey(KeyCode.V))
-            runToWall = true;
+            moveRandomly = true;
         else
-            runToWall = false;
-
+        {
+            moveRandomly = false;
+            RandomX = 0f;
+            RandomZ = 0f;
+        }*/
+            
         if (!falling)
         {
             if (runToWall && distanceToWall > 29.5f && isGrounded)
@@ -86,9 +148,12 @@ public class Enemy_Controller : Physics_Character_Controller
         onWall = false;
         falling = true;
         currentFallSpeed -= 5f;
+        RandomX = 0f;
     }
 
-    protected void SetDirection()
+    
+
+  /*  protected void SetDirection()
     {
         if (!onWall)
         {
@@ -96,6 +161,18 @@ public class Enemy_Controller : Physics_Character_Controller
                 direction = directionToPlayer;
             else if (runToWall)
                 direction = directionToWall;
+            else if (moveRandomly)
+            {
+                if (distanceToWall > 25f)
+                    direction = -directionToWall;
+                else if(RandomX == 0f || RandomZ == 0f)
+                {
+                    RandomX = Random.Range(-1f, 1f);
+                    RandomZ = Random.Range(-1f, 1f);
+
+                    direction = new Vector3(RandomX, 0f, RandomZ);    
+                }      
+            }
             else
                 direction = new Vector3();
         }  
@@ -108,7 +185,7 @@ public class Enemy_Controller : Physics_Character_Controller
             if (chance > 99f)
                 JumpOffWall();
         }
-    }
+    }*/
 
     private void JumpOffWall()
     {
@@ -116,11 +193,15 @@ public class Enemy_Controller : Physics_Character_Controller
         StopCoroutine(OnWallEnter());
         onWall = false;
         falling = true;
+        RandomX = 0f;
     }
 
     private Vector3 CalculateDirectionOnWall()
     {
-        float targetAngle = Mathf.Atan2(-1f, 0f) * Mathf.Rad2Deg;
+        if (RandomX == 0f)
+            RandomX = Random.Range(-1f, 1f);
+
+        float targetAngle = Mathf.Atan2(RandomX, 0f) * Mathf.Rad2Deg;
         Vector3 movementDirection = Quaternion.Euler(0f, transform.eulerAngles.y - targetAngle, 0f) * Vector3.forward;
         return movementDirection;
     }
@@ -156,6 +237,6 @@ public class Enemy_Controller : Physics_Character_Controller
         if (direction.magnitude >= 0.1f && !falling)
         {
             transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
-        }    
+        }
     }
 }
