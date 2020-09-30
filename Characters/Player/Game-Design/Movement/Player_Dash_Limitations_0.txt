@@ -1,0 +1,15 @@
+While in Jump
+If player is in air they can dash only once in one direction and their velocity on Y axis will increase so they will fall faster - The goal is that they will fall diagonally, They can dash only once while mid-air
+Is already jumping
+
+While on Ground
+Dash into each direction will have some amount of time of cooldown (3 seconds?)
+Normal Jump
+
+While on wall
+No dashing avalible
+When Jump is pressed Jump to the center of arena
+
+While in Jump of wall
+No dashing avalible
+When Jump Key is pressed Velocity Y will increase
