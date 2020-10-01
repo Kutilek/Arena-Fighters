@@ -43,6 +43,7 @@ public class Player_Controller : Physics_Character_Controller
     [SerializeField] protected float onWallDuration;
 
     private float dashBonus = 1f;
+    private bool dashed = false;
 
     #endregion
 
@@ -157,28 +158,44 @@ public class Player_Controller : Physics_Character_Controller
         return movementDirection;
     }
 
+    private IEnumerator ResetDash()
+    {
+        dashed = true;
+
+        yield return new WaitForSeconds(3f);
+
+        dashed = false;
+    }
+
     private IEnumerator Dash(float dashForce)
     {
         float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
         Vector3 dashDirection = Quaternion.Euler(0f, transform.eulerAngles.y + targetAngle, 0f) * Vector3.forward;
 
+        StartCoroutine(ResetDash());
+        if (falling)
+            currentFallSpeed -= 15f;
         AddForce(dashDirection, dashForce);
 
         yield return new WaitForSeconds(dashDuration);
 
-        ResetImpact();
+        if (!falling)
+            ResetImpact();
     }
 
     private void CheckForDashInput()
     {
-        if (doublePressMovementCommand.Equals(dashForwardCommand))
-            StartCoroutine(Dash(frontDashForce * dashBonus));
-        else if (doublePressMovementCommand.Equals(dashBackwardCommand))
-            StartCoroutine(Dash(backDashForce * dashBonus));
-        else if (doublePressMovementCommand.Equals(dashLeftCommand))
-            StartCoroutine(Dash(sideDashForce * dashBonus));
-        else if (doublePressMovementCommand.Equals(dashRightCommand))
-            StartCoroutine(Dash(sideDashForce * dashBonus));
+        if (!dashed)
+        {
+            if (doublePressMovementCommand.Equals(dashForwardCommand))
+                StartCoroutine(Dash(frontDashForce * dashBonus));
+            else if (doublePressMovementCommand.Equals(dashBackwardCommand))
+                StartCoroutine(Dash(backDashForce * dashBonus));
+            else if (doublePressMovementCommand.Equals(dashLeftCommand))
+                StartCoroutine(Dash(sideDashForce * dashBonus));
+            else if (doublePressMovementCommand.Equals(dashRightCommand))
+                StartCoroutine(Dash(sideDashForce * dashBonus));
+        }
     }
 
     private IEnumerator JumpOffGround()
