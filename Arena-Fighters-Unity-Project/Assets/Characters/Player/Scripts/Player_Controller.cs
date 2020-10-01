@@ -44,6 +44,7 @@ public class Player_Controller : Physics_Character_Controller
 
     private float dashBonus = 1f;
     private bool dashed = false;
+    private bool jumpedOfWall = false;
 
     #endregion
 
@@ -116,6 +117,9 @@ public class Player_Controller : Physics_Character_Controller
         else
             AddGravity();
 
+        if (jumpedOfWall && pressMovementCommand.Equals(jumpCommand))
+            AddForce(Vector3.down, jumpForce);
+
         MoveCharacter(moveDir);
     }
 
@@ -185,7 +189,7 @@ public class Player_Controller : Physics_Character_Controller
 
     private void CheckForDashInput()
     {
-        if (!dashed)
+        if (!dashed && !jumpedOfWall)
         {
             if (doublePressMovementCommand.Equals(dashForwardCommand))
                 StartCoroutine(Dash(frontDashForce * dashBonus));
@@ -270,11 +274,21 @@ public class Player_Controller : Physics_Character_Controller
         return movementDirection;
     }
 
+    private IEnumerator ResetJumpOfWall()
+    {
+        jumpedOfWall = true;
+
+        yield return new WaitUntil(() => isGrounded);
+
+        jumpedOfWall = false;
+    }
+
     private void JumpOffWall()
     {
         AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 0.5f, 1f), jumpForce * 2f);
         StopCoroutine(OnWallEnter());
         onWall = false;
+        StartCoroutine(ResetJumpOfWall());      
     }
 
     #endregion
