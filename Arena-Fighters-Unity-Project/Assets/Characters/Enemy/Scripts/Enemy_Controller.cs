@@ -9,91 +9,55 @@ public class Enemy_Controller : Physics_Character_Controller
     private Vector3 directionToWall;
     private float distanceToPlayer;
     private float distanceToWall;
+    private float RandomX = 0f;
+    private float RandomZ = 0f;
+    private bool calculateChances = true;
 
-    [SerializeField] protected float playerDashDistance;
+    #region Movement Values
 
-    protected void Awake()
+    [SerializeField] private float playerDashDistance;
+    [SerializeField] private float dashForce;
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float speed;
+    [SerializeField] private float onWallDuration;
+
+    #endregion
+
+    #region Commands
+
+    [SerializeField] private EnemyCommand moveRandomCommand;
+    [SerializeField] private EnemyCommand followPlayerCommand;
+    [SerializeField] private EnemyCommand dashToPlayerCommand;
+    [SerializeField] private EnemyCommand runToWallCommand;
+    [SerializeField] private EnemyCommand jumpOffWallCommand;
+
+    #endregion
+
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    protected void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.transform.tag == "Wall" && !isGrounded && velocity.y > -5f && falling)
             StartCoroutine(OnWallEnter());
     }
 
-    private float RandomX = 0f;
-    private float RandomZ = 0f;
-    [SerializeField] private EnemyCommand moveRandomCommand;
-
-    private Vector3 SetRandomDirection()
+    private Vector3 GetDirectionToObject(Transform obj)
     {
-        Vector3 dir = Vector3.zero;
-
-        if (distanceToWall >= 25f)
-            dir = -directionToWall;
-        else if(RandomX == 0f || RandomZ == 0f)
-        {
-            RandomX = Random.Range(-1f, 1f);
-            RandomZ = Random.Range(-1f, 1f);
-
-            dir = new Vector3(RandomX, 0f, RandomZ);
-        }
-
-        return dir;
+        Vector3 direction = (transform.position - obj.transform.position).normalized;
+        return direction;
     }
 
-    private IEnumerator MoveRandom()
+    private float GetDistanceToObject(Transform obj)
     {
-        if (direction == Vector3.zero)
-            direction = SetRandomDirection(); 
-
-        if (distanceToPlayer <= 15f)
-            transform.LookAt(player);
-        else
-            RotateOnGround();
-
-        yield return new WaitForSecondsRealtime(moveRandomCommand.duration);
-
-        direction = Vector3.zero;
-        RandomX = 0f;
-        RandomZ = 0f;
-        moveRandomCommand.isAble = false;
+        float distance = Vector3.Distance(transform.position, obj.transform.position);
+        return distance;
     }
 
-    [SerializeField] private EnemyCommand followPlayerCommand;
-
-    private IEnumerator FollowPlayer()
-    {
-        StopCoroutine(MoveRandom());
-        direction = directionToPlayer;
-        
-        RotateOnGround();
-
-        yield return new WaitForSecondsRealtime(followPlayerCommand.duration);
-
-        direction = Vector3.zero;
-        followPlayerCommand.isAble = false;
-    }
-
-    [SerializeField] private EnemyCommand dashToPlayerCommand;
-
-    protected IEnumerator DashToPlayer()
-    {
-        AddForce(directionToPlayer, 20f);
-        
-        yield return new WaitForSeconds(0.2f);
-
-        dashToPlayerCommand.isAble = false;
-        ResetImpact();
-    }
-
-    [SerializeField] private EnemyCommand runToWallCommand;
-
-    private bool calculateChances = true;
-
-    protected void Update()
+    private void Update()
     {
         CheckIfGrounded();
         directionToPlayer = -GetDirectionToObject(player);
@@ -108,7 +72,7 @@ public class Enemy_Controller : Physics_Character_Controller
             dashToPlayerCommand.CalculateChance();
             runToWallCommand.CalculateChance();
         }
-        
+
         dashToPlayerCommand.ResetIsAble();
 
         if (moveRandomCommand.isAble)
@@ -128,7 +92,7 @@ public class Enemy_Controller : Physics_Character_Controller
             moveRandomCommand.isAble = false;
             followPlayerCommand.isAble = false;
             dashToPlayerCommand.isAble = false;
-            RotateOnGround();
+            RotateInDirectionMoving();
 
             direction = directionToWall; 
             if (distanceToWall > 29.5f && isGrounded)
@@ -145,12 +109,95 @@ public class Enemy_Controller : Physics_Character_Controller
         if (falling)
             AddGravity();
 
-        currentSpeed = 4f;
+        currentSpeed = speed;
 
         MoveCharacter(direction);
     }
 
-    [SerializeField] private EnemyCommand jumpOffWallCommand;
+    #region Ground Movement
+
+    private IEnumerator MoveRandom()
+    {
+        if (direction == Vector3.zero)
+            direction = SetRandomDirection(); 
+
+        if (distanceToPlayer <= 15f)
+            transform.LookAt(player);
+        else
+            RotateInDirectionMoving();
+
+        yield return new WaitForSecondsRealtime(moveRandomCommand.duration);
+
+        RandomX = 0f;
+        RandomZ = 0f;
+        direction = Vector3.zero;
+        moveRandomCommand.isAble = false;
+    }
+
+    private Vector3 SetRandomDirection()
+    {
+        Vector3 dir = Vector3.zero;
+
+        if (distanceToWall >= 25f)
+            dir = -directionToWall;
+        else if(RandomX == 0f || RandomZ == 0f)
+        {
+            RandomX = Random.Range(-1f, 1f);
+            RandomZ = Random.Range(-1f, 1f);
+
+            dir = new Vector3(RandomX, 0f, RandomZ);
+        }
+
+        return dir;
+    }
+
+    private IEnumerator FollowPlayer()
+    {
+        StopCoroutine(MoveRandom());
+        direction = directionToPlayer;
+
+        RotateInDirectionMoving();
+
+        yield return new WaitForSecondsRealtime(followPlayerCommand.duration);
+
+        direction = Vector3.zero;
+        followPlayerCommand.isAble = false;
+    }
+
+    private IEnumerator DashToPlayer()
+    {
+        AddForce(directionToPlayer, dashForce);
+
+        yield return new WaitForSeconds(dashDuration);
+
+        dashToPlayerCommand.isAble = false;
+        ResetImpact();
+    }
+
+    private IEnumerator JumpOffGround()
+    {
+        AddForce(Vector3.up, jumpForce);
+        falling = true;
+
+        yield return new WaitUntil(() => isGrounded && !falling);
+
+        ResetImpactY();
+    }
+
+    private float turnSmoothVelocity;
+    private float turnSmoothTime = 0.05f;
+    private void RotateInDirectionMoving()
+    {
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+        if (direction.magnitude >= 0.1f && !falling)
+            transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
+    }
+
+    #endregion
+
+    #region Wall Movement
 
     private IEnumerator OnWallEnter()
     {
@@ -164,27 +211,14 @@ public class Enemy_Controller : Physics_Character_Controller
         transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
         direction = CalculateDirectionOnWall();
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(onWallDuration);
 
         onWall = false;
-        calculateChances = true;
         falling = true;
         currentFallSpeed -= 5f;
         RandomX = 0f;
         direction = Vector3.zero;
-    }
-
-    private void JumpOffWall()
-    {
-        currentFallSpeed -= 5f;
-        AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 0.5f, 1f), 50f * 2f);
-        StopCoroutine(OnWallEnter());
-        onWall = false;
         calculateChances = true;
-        falling = true;  
-        RandomX = 0f;
-        direction = Vector3.zero;
-        jumpOffWallCommand.isAble = false;
     }
 
     private Vector3 CalculateDirectionOnWall()
@@ -197,38 +231,19 @@ public class Enemy_Controller : Physics_Character_Controller
         return movementDirection;
     }
 
-    protected Vector3 GetDirectionToObject(Transform obj)
+    private void JumpOffWall()
     {
-        Vector3 direction = (transform.position - obj.transform.position).normalized;
-        return direction;
-    }
-
-    protected float GetDistanceToObject(Transform obj)
-    {
-        float distance = Vector3.Distance(transform.position, obj.transform.position);
-        return distance;
-    }
-
-    private IEnumerator JumpOffGround()
-    {
-        AddForce(Vector3.up, 50f);
+        currentFallSpeed -= 5f;
+        AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 0.5f, 1f), jumpForce * 2f);
+        StopCoroutine(OnWallEnter());
+        onWall = false;
         falling = true;
-
-        yield return new WaitUntil(() => isGrounded && !falling);
-
-        ResetImpactY();
+        RandomX = 0f;
+        direction = Vector3.zero;
+        calculateChances = true;
+        jumpOffWallCommand.isAble = false;
     }
 
-    private float turnSmoothVelocity;
-    private float turnSmoothTime = 0.05f;
-    private void RotateOnGround()
-    {
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+    #endregion
 
-        if (direction.magnitude >= 0.1f && !falling)
-        {
-            transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
-        }
-    }
 }

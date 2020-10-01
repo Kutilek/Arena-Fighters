@@ -244,26 +244,31 @@ MonoBehaviour:
   damping: 2
   mass: 3
   playerDashDistance: 10
+  dashForce: 0
+  dashDuration: 0
+  jumpForce: 0
+  speed: 5
+  onWallDuration: 0
   moveRandomCommand:
     isAble: 0
     cooldown: 5
-    duration: 3
-    randomChance: 85
+    duration: 2
+    randomChance: 100
   followPlayerCommand:
     isAble: 0
-    cooldown: 7
-    duration: 7
-    randomChance: 40
+    cooldown: 6
+    duration: 2
+    randomChance: 100
   dashToPlayerCommand:
     isAble: 0
     cooldown: 5
     duration: 2
-    randomChance: 50
+    randomChance: 0
   runToWallCommand:
     isAble: 0
     cooldown: 20
     duration: 0
-    randomChance: 33
+    randomChance: 0
   jumpOffWallCommand:
     isAble: 0
     cooldown: 0.5
@@ -511,7 +516,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.15634127, y: 0.12896952, z: -0.020595135, w: 0.97903025}
+  m_LocalRotation: {x: 0.15634125, y: 0.1289695, z: -0.020595131, w: 0.97903025}
   m_LocalPosition: {x: 10.2765255, y: 6.041107, z: -28.41455}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -656,23 +661,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4227441749955008205, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.12938744
+      value: 0.12938747
       objectReference: {fileID: 0}
     - target: {fileID: 4227441749955008205, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.017781436
+      value: -0.01778144
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17057143
+      value: 0.17057142
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.12865615
+      value: 0.12865612
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.022469698
+      value: -0.022469692
       objectReference: {fileID: 0}
     - target: {fileID: 5278608587338162880, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.w
