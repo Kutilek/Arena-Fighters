@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7193841706090527520}
   - component: {fileID: 7193841706476578336}
+  - component: {fileID: 6677822402946963112}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -244,3 +245,48 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6677822402946963112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193841706476578337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7162462de786304b990a84b11e78551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damping: 2
+  mass: 3
+  playerDashDistance: 7
+  dashForce: 25
+  dashDuration: 0.2
+  jumpForce: 15
+  speed: 4
+  onWallDuration: 3
+  moveRandomCommand:
+    isAble: 0
+    cooldown: 5
+    duration: 3
+    randomChance: 85
+  followPlayerCommand:
+    isAble: 0
+    cooldown: 7
+    duration: 7
+    randomChance: 40
+  dashToPlayerCommand:
+    isAble: 0
+    cooldown: 2
+    duration: 1
+    randomChance: 10
+  runToWallCommand:
+    isAble: 0
+    cooldown: 20
+    duration: 0
+    randomChance: 20
+  jumpOffWallCommand:
+    isAble: 0
+    cooldown: 0.5
+    duration: 0.2
+    randomChance: 10
