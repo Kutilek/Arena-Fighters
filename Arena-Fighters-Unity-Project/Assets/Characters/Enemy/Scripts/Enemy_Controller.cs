@@ -157,7 +157,7 @@ public class Enemy_Controller : Physics_Character_Controller
     private IEnumerator FollowPlayer()
     {
         StopCoroutine(MoveRandom());
-        direction = directionToPlayer;
+        direction = directionToPlayer - Vector3.up;
 
         RotateInDirectionMoving();
 
