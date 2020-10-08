@@ -1,0 +1,13 @@
+Combat Stats
+Health
+Damage
+
+Movement Impairing Effects
+Silenced - Cannot Dash or Jump on Wall
+Knocbacked - Adds a force to the target in a certain direction, can be reset by dash
+Immobilized - Will not stop outside forces but cannot move
+Stunned - Will stop all forces and ground in current place
+
+Combat stats Impairing Effects
+Bleed - Will loose a small amount of health over time
+Weaken - Will loose some damage for a certain amount of time
