@@ -122,7 +122,10 @@ public class Enemy_Controller : Physics_Character_Controller
             direction = SetRandomDirection(); 
 
         if (distanceToPlayer <= 15f)
+        {
             transform.LookAt(player);
+            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+        }
         else
             RotateInDirectionMoving();
 
