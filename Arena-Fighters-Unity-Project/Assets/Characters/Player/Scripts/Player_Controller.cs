@@ -70,7 +70,8 @@ public class Player_Controller : Physics_Character_Controller
     protected override void Start()
     {
         base.Start();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;    
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     protected void OnControllerColliderHit(ControllerColliderHit hit)
