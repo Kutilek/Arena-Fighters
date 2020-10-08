@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Cinemachine;
 
 public class Player_Controller : Physics_Character_Controller
 {
@@ -69,9 +70,13 @@ public class Player_Controller : Physics_Character_Controller
 
     protected override void Start()
     {
-        base.Start();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        base.Start();       
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    protected void Awake()
+    {
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     protected void OnControllerColliderHit(ControllerColliderHit hit)
@@ -289,7 +294,7 @@ public class Player_Controller : Physics_Character_Controller
         AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 0.5f, 1f), jumpForce * 2f);
         StopCoroutine(OnWallEnter());
         onWall = false;
-        StartCoroutine(ResetJumpOfWall());      
+        StartCoroutine(ResetJumpOfWall());
     }
 
     #endregion
