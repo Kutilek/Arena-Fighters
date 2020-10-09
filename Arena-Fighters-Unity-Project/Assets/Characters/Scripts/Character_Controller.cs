@@ -77,4 +77,15 @@ public abstract class Character_Controller : MonoBehaviour
     {
         currentImpact.y = 0f;
     }
+
+    [SerializeField] protected float health = 100f;
+    [SerializeField] protected float damage = 5f;
+
+    protected virtual void CheckForDead()
+    {
+        if (health <= 0f)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
