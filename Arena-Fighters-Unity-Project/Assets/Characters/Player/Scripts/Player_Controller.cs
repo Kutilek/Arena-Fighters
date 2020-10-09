@@ -2,7 +2,7 @@
 using UnityEngine;
 using Cinemachine;
 
-public class Player_Controller : Physics_Character_Controller
+public class Player_Controller : Character_Controller
 {
     #region Movement Inputs
 

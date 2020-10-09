@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Physics_Character_Controller : MonoBehaviour
+public abstract class Character_Controller : MonoBehaviour
 {
     private readonly float gravity = Physics.gravity.y;
     private const float gravityMultiplier = 1.8246f;

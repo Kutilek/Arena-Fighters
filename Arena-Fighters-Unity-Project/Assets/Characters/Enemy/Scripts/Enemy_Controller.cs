@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Enemy_Controller : Physics_Character_Controller
+public class Enemy_Controller : Character_Controller
 {
     private Transform player;
     private Vector3 direction;
