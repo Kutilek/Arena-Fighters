@@ -2,7 +2,7 @@
 
 public class Attack_Input_Handler : Input_Handler
 {
-    protected override void Start()
+   /* protected override void Start()
     {
         base.Start();
         helperKey = KeyCode.LeftControl;
@@ -15,5 +15,5 @@ public class Attack_Input_Handler : Input_Handler
         playerController.pressAttackCommand = CreatePressCommand(inputKeys);
         playerController.releaseAttackCommand = CreateReleaseCommand(inputKeys);
         playerController.mouseScroll = Input.mouseScrollDelta.y;
-    }
+    }*/
 }

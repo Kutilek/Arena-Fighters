@@ -31,6 +31,7 @@ public class Enemy_Controller : Character_Controller
     [SerializeField] private EnemyCommand dashToPlayerCommand;
     [SerializeField] private EnemyCommand runToWallCommand;
     [SerializeField] private EnemyCommand jumpOffWallCommand;
+    [SerializeField] private EnemyCommand stunPlayerCommand;
 
     #endregion
 
@@ -57,8 +58,64 @@ public class Enemy_Controller : Character_Controller
         return distance;
     }
 
+    private void Attack()
+    {
+        if (distanceToPlayer <= 2f && followPlayerCommand.isAble)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+            {
+                if (hit.collider.tag == "Player")
+                {
+                    Debug.Log("HIT");
+                  //  hit.collider.GetComponent<Player_Controller>().Knocback(transform.forward);
+                }
+            }
+        }
+    }
+
+    protected IEnumerator MovementImpairEnemy(MovementImpairingEffects effect, float duration)
+    {
+        player.GetComponent<Player_Controller>().currentMovementImpairingEffect = effect;
+
+        yield return new WaitForSeconds(duration);
+
+        player.GetComponent<Player_Controller>().currentMovementImpairingEffect = MovementImpairingEffects.None;
+    }
+
+
+    private void StunPlayer()
+    {
+        if (followPlayerCommand.isAble && distanceToPlayer <= 10f && stunPlayerCommand.isAble)
+        {
+            Debug.Log("STUN");
+            StartCoroutine(ResetStun());
+            StartCoroutine(MovementImpairEnemy(MovementImpairingEffects.Immobilization, 7f));
+        }
+    }
+
+    public bool stuned;
+    private IEnumerator ResetStun()
+    {
+        stuned = true;
+
+        yield return new WaitForSeconds(10f);
+
+        stuned = false;
+    }
+
     private void Update()
     {
+        if (!stuned)
+        {
+            stunPlayerCommand.CalculateChance();
+           // stunPlayerCommand.ResetIsAble();
+            StunPlayer();
+        }
+        
+        Attack();
+        
+
         CheckIfGrounded();
         directionToPlayer = -GetDirectionToObject(player);
         directionToWall = GetDirectionToObject(arenaCenter);
@@ -111,10 +168,25 @@ public class Enemy_Controller : Character_Controller
 
         currentSpeed = speed;
 
-        MoveCharacter(direction);
+        if (currentMovementImpairingEffect != MovementImpairingEffects.Stun)
+            MoveCharacter(direction);
     }
 
     #region Ground Movement
+
+    public void Knocback(Vector3 direction)
+    {
+        StartCoroutine(GetKnocback(direction));
+    }
+
+    public IEnumerator GetKnocback(Vector3 direction)
+    {
+        AddOutsideImpact(direction, 50f);
+
+        yield return new WaitForSeconds(0.4f);
+
+        ResetOutsideImpact();
+    }
 
     private IEnumerator MoveRandom()
     {

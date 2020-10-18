@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 public class Movement_Input_Handler : Input_Handler
-{  
-    protected override void Start()
+{  /*    protected override void Start()
     {
         base.Start();
         helperKey = KeyCode.LeftShift;
@@ -22,5 +21,5 @@ public class Movement_Input_Handler : Input_Handler
         float ad = Input.GetAxisRaw("Horizontal");
         float ws = Input.GetAxisRaw("Vertical");
         return new Vector3(ad, 0f, ws).normalized;
-    }
+    }*/
 }

@@ -22,7 +22,7 @@ public abstract class Input_Handler : MonoBehaviour
             return false;
     }
 
-    protected virtual Command CreatePressCommand(KeyCode[] inputKeys)
+   /* protected virtual Command CreatePressCommand(KeyCode[] inputKeys)
     {
         foreach(KeyCode inputKey in inputKeys)
         {
@@ -59,5 +59,5 @@ public abstract class Input_Handler : MonoBehaviour
             }
         }
         return new Command();
-    }
+    }*/
 }

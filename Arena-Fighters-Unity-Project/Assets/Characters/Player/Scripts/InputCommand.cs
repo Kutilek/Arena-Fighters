@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public struct Command
+public struct InputCommand
 {
     public KeyCode keyCode;
     public bool released;
     public bool doublePressed;
     
-    public Command(KeyCode keyCode, bool released, bool doublePressed)
+    public InputCommand(KeyCode keyCode, bool released, bool doublePressed)
     {
         this.keyCode = keyCode;
         this.released = released;
