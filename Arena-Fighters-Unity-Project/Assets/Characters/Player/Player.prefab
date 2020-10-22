@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2894914228231280428}
   - component: {fileID: 2894914228231280429}
   - component: {fileID: 2894914228231280425}
-  - component: {fileID: 2894914228231280426}
   - component: {fileID: 2894914228231280427}
   - component: {fileID: 2894914228231280430}
   - component: {fileID: 2894914228231280431}
@@ -72,23 +71,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onWallDuration: 5
   jumpOffWallForce: 120
---- !u!114 &2894914228231280426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2894914228231280424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c799395c7e54924b95d9108fc13391c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkForGround: 1
-  inputDirection: {x: 0, y: 0, z: 0}
-  currentGravityState: 0
-  damping: 1
-  mass: 5
 --- !u!114 &2894914228231280427
 MonoBehaviour:
   m_ObjectHideFlags: 0

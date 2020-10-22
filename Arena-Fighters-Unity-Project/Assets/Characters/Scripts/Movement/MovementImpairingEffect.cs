@@ -1,6 +1,6 @@
 ﻿public enum MovementImpairingEffect
 {
-    None, 
-    Immobilization, 
+    None,
+    Immobilization,
     Stun
 }

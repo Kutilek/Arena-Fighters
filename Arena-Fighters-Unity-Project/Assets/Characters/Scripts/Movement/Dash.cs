@@ -9,18 +9,17 @@ public class Dash : MonoBehaviour
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashForce;
     private bool dashed;
-    
-    public void CastDash()
-    {
-        if (!dashed && characterPhysics.currentGravityState == GravityState.Grounded || characterPhysics.currentGravityState == GravityState.Falling)
-            StartCoroutine(CalculateDash());
-    }
-    
     public bool GetDashed()
     {
         return dashed;
     }
-
+    
+    public void CastDash(Vector3 inputDirection)
+    {
+        if (!dashed && characterPhysics.currentGravityState == GravityState.Grounded || characterPhysics.currentGravityState == GravityState.Falling)
+            StartCoroutine(CalculateDash(inputDirection));
+    }
+    
     private void Awake()
     {
         characterPhysics = GetComponent<Character_Physics>();
@@ -35,18 +34,22 @@ public class Dash : MonoBehaviour
         dashed = false;
     }
 
-    private IEnumerator CalculateDash()
+    private IEnumerator CalculateDash(Vector3 inputDirection)
     {
-        float targetAngle = Mathf.Atan2(characterPhysics.inputDirection.x, characterPhysics.inputDirection.z) * Mathf.Rad2Deg;
+        // Calculate the angle of dash based on the Character Rotation Angle
+        float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
         Vector3 dashDirection = Quaternion.Euler(0f, transform.eulerAngles.y + targetAngle, 0f) * Vector3.forward;
 
+        // Coroutine for Dash Cooldown
         StartCoroutine(ResetDash());
 
+        // If Character is Falling also Pushes the Character Down
         if (characterPhysics.currentGravityState == GravityState.Falling)
             dashDirection += Vector3.down;
 
         characterPhysics.AddForce(dashDirection, dashForce);
 
+        // Reseting Impact After dash is done
         yield return new WaitForSeconds(dashDuration);
 
         characterPhysics.ResetImpact();
