@@ -1,83 +1,41 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Character_Combat : MonoBehaviour
+[RequireComponent(typeof(Character_Physics))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Damage))]
+public abstract class Character_Combat : MonoBehaviour
 {
-    [SerializeField] protected float attackDistance;
-
-    protected virtual void Awake()
-    {
-        
-    }
-
-    public void Test()
+    public virtual Character_Physics GetCombatCharacterComponents(float distance, out Health health)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, attackDistance))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, distance))
         {
-
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (pressAttackCommand.Equals(actionTwoStartCommand))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+            if (hit.collider.GetComponent<Character_Combat>() != null)
             {
-                StartCoroutine(MovementImpairEnemy(hit, MovementImpairingEffects.Stun, 3f));
-            }
+                health = hit.collider.GetComponent<Health>();
+                return hit.collider.GetComponent<Character_Physics>();
+            }   
         }
-
-        if (pressAttackCommand.Equals(lightAttackCommand))
-        {
-           // StartCoroutine(KnocbackMe());
-
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
-            {
-                if (hit.collider.tag == "Enemy")
-                {
-                    Debug.Log("HIT");
-                    hit.collider.GetComponent<Enemy_Controller>().Knocback(transform.forward);
-                }
-            }
-        }
+        health = null;
+        return null;
     }
 
-    public void KnocbackTarget()
+    public IEnumerator KnocbackCharacter(Character_Physics character, Vector3 direction, float knocbackForce, float knocbackLength)
     {
+        character.AddOutsideForce(direction, knocbackForce);
 
+        yield return new WaitForSeconds(knocbackLength);
+
+        character.ResetOutsideImpact();
     }
 
-    public void Knocback(Vector3 direction)
+    public IEnumerator SetCharacterMovementImpairingEffect(Character_Physics character, MovementImpairingEffect effect, float length)
     {
-        StartCoroutine(GetKnocback(direction));
+        character.SetMovementImpairingEffect(effect);
+
+        yield return new WaitForSeconds(length);
+
+        character.SetMovementImpairingEffect(MovementImpairingEffect.None);
     }
-
-    public IEnumerator GetKnocback(Vector3 direction)
-    {
-        AddOutsideImpact(direction, 20f);
-
-        yield return new WaitForSeconds(0.4f);
-
-        ResetOutsideImpact();
-    }
-
-    protected IEnumerator MovementImpairEnemy(RaycastHit hit, MovementImpairingEffects effect, float duration)
-    {
-        if (hit.collider.tag == "Enemy")
-        {
-            hit.collider.GetComponent<Enemy_Controller>().currentMovementImpairingEffect = effect;
-            Debug.Log("Impaired!!!");
-        }
-
-        yield return new WaitForSeconds(duration);
-
-        hit.collider.GetComponent<Enemy_Controller>().currentMovementImpairingEffect = MovementImpairingEffects.None;
-    }
-
-    
 }

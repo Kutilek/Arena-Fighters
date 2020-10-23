@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public abstract class Character_Physics : MonoBehaviour
+public class Character_Physics : MonoBehaviour
 {
     private CharacterController controller;
 
@@ -65,14 +65,10 @@ public abstract class Character_Physics : MonoBehaviour
         currentOutsideImpact.y = 0f;
     }
 
-    // Sets Movement Impairing Effect and then sets None after some time
-    public IEnumerator SetMovementImpairingEffect(MovementImpairingEffect effect, float length)
+    // Sets Movement Impairing Effect
+    public void SetMovementImpairingEffect(MovementImpairingEffect effect)
     {
         currentMovementImpairingEffect = effect;
-
-        yield return new WaitForSeconds(length);
-
-        currentMovementImpairingEffect = MovementImpairingEffect.None;
     }
 
     public IEnumerator PauseGroundCheck()

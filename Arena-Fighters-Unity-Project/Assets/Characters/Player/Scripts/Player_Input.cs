@@ -7,11 +7,14 @@ public class Player_Input : MonoBehaviour
     private Wall_Interaction wallInteraction;
     private Dash dash;
     private Jump jump;
+    private Light_Attack lightAttack;
+
+    private InputCommand lightAttackCommand = new InputCommand(KeyCode.Mouse0, false, false);
 
     #region Movement Inputs / Commands
 
     // Movement Input Keys
-    private KeyCode[] inputKeys = {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
+    private KeyCode[] inputKeys = {KeyCode.Mouse0 ,KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
     private KeyCode movementHelperKey = KeyCode.LeftShift;
 
     // Current Movement Inputs
@@ -36,6 +39,7 @@ public class Player_Input : MonoBehaviour
         wallInteraction = GetComponent<Wall_Interaction>();
         dash = GetComponent<Dash>();
         jump = GetComponent<Jump>();
+        lightAttack = GetComponent<Light_Attack>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -68,6 +72,9 @@ public class Player_Input : MonoBehaviour
 
             if (pressMovementCommand.Equals(jumpCommand))
                 jump.CastJump();
+
+            if (pressMovementCommand.Equals(lightAttackCommand))
+                lightAttack.Cast();
         }
     }
 

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class Enemy_Controller : Character_Controller
-{
+{/*
     private Transform player;
     private Vector3 direction;
     private Vector3 directionToPlayer;
@@ -319,6 +319,6 @@ public class Enemy_Controller : Character_Controller
         jumpOffWallCommand.isAble = false;
     }
 
-    #endregion
+    #endregion*/
 
 }
