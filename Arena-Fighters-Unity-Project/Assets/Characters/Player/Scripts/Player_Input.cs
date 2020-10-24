@@ -3,29 +3,30 @@
 [RequireComponent(typeof(Player_Physics))]
 public class Player_Input : MonoBehaviour
 {
+    // Components
     private Player_Physics characterPhysics;
     private Wall_Interaction wallInteraction;
     private Dash dash;
     private Jump jump;
     private Light_Attack lightAttack;
     private Stun_Target stunTarget;
+    private Immobilize_Target immobilizeTarget;
 
+    #region Inputs / Commands
+
+    // Input Keys
+    private KeyCode[] inputKeys = {KeyCode.Mouse0, KeyCode.E, KeyCode.Q, KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
+
+    // Current Movement Inputs
+    private InputCommand pressCommand;
+    private InputCommand doublePressCommand;
+
+    // Combat Commands
     private InputCommand lightAttackCommand = new InputCommand(KeyCode.Mouse0, false, false);
     private InputCommand stunTargetCommand = new InputCommand(KeyCode.E, false, false);
     private InputCommand immobilizeTargetCommand = new InputCommand(KeyCode.Q, false, false);
 
-    #region Movement Inputs / Commands
-
-    // Movement Input Keys
-    private KeyCode[] inputKeys = {KeyCode.Mouse0, KeyCode.E, KeyCode.Q, KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
-    private KeyCode movementHelperKey = KeyCode.LeftShift;
-
-    // Current Movement Inputs
-    private InputCommand pressMovementCommand;
-    private InputCommand doublePressMovementCommand;
-    private bool moveHelperKeyPressed;
-
-    // Commands
+    // Movement Commands 
     private InputCommand dashForwardCommand = new InputCommand(KeyCode.W, false, true);
     private InputCommand dashLeftCommand = new InputCommand(KeyCode.A, false, true);
     private InputCommand dashBackwardCommand = new InputCommand(KeyCode.S, false, true);
@@ -44,44 +45,48 @@ public class Player_Input : MonoBehaviour
         jump = GetComponent<Jump>();
         lightAttack = GetComponent<Light_Attack>();
         stunTarget = GetComponent<Stun_Target>();
+        immobilizeTarget = GetComponent<Immobilize_Target>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
         characterPhysics.inputDirectionRaw = GetMoveDirection();
-        pressMovementCommand = CreatePressCommand(inputKeys);
+        pressCommand = CreatePressCommand(inputKeys);
 
         if (characterPhysics.currentGravityState == GravityState.OnWall)
         {
             // Need to calculate direction on wall differently
             characterPhysics.inputDirection = wallInteraction.CalculateDirectiOnOnWall(characterPhysics.inputDirectionRaw);
 
-            if (pressMovementCommand.Equals(jumpCommand))
+            if (pressCommand.Equals(jumpCommand))
                 wallInteraction.JumpOffWall();
         }
         else
         {
-            doublePressMovementCommand = CreateDoublePressCommand(inputKeys);
+            doublePressCommand = CreateDoublePressCommand(inputKeys);
 
             // Check for Dash Command
-            if (doublePressMovementCommand.Equals(dashBackwardCommand))
+            if (doublePressCommand.Equals(dashBackwardCommand))
                 dash.CastDash(characterPhysics.inputDirectionRaw);
-            else if (doublePressMovementCommand.Equals(dashForwardCommand))
+            else if (doublePressCommand.Equals(dashForwardCommand))
                 dash.CastDash(characterPhysics.inputDirectionRaw);
-            else if (doublePressMovementCommand.Equals(dashRightCommand))
+            else if (doublePressCommand.Equals(dashRightCommand))
                 dash.CastDash(characterPhysics.inputDirectionRaw);
-            else if (doublePressMovementCommand.Equals(dashLeftCommand))
+            else if (doublePressCommand.Equals(dashLeftCommand))
                 dash.CastDash(characterPhysics.inputDirectionRaw);
 
-            if (pressMovementCommand.Equals(jumpCommand))
+            if (pressCommand.Equals(jumpCommand))
                 jump.CastJump();
 
-            if (pressMovementCommand.Equals(lightAttackCommand))
+            if (pressCommand.Equals(lightAttackCommand))
                 lightAttack.Cast();
 
-            if (pressMovementCommand.Equals(stunTargetCommand))
+            if (pressCommand.Equals(stunTargetCommand))
                 stunTarget.Cast();
+
+            if (pressCommand.Equals(immobilizeTargetCommand))
+                immobilizeTarget.Cast();
         }
     }
 

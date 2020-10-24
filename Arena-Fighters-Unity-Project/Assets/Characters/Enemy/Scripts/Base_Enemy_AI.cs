@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Character_Physics))]
 public class Base_Enemy_AI : MonoBehaviour
@@ -20,7 +18,6 @@ public class Base_Enemy_AI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
