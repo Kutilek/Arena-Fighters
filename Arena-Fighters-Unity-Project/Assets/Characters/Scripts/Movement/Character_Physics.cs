@@ -85,9 +85,9 @@ public class Character_Physics : MonoBehaviour
     protected virtual void Awake()
     {
         if (damping == 0f)
-            damping = 2f;
+            damping = 6f;
         if (mass == 0f)
-            mass = 2f;
+            mass = 3f;
 
         controller = GetComponent<CharacterController>();
         groundMask = LayerMask.GetMask("Ground");
