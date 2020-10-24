@@ -11,11 +11,12 @@ public class Player_Input : MonoBehaviour
     private Light_Attack lightAttack;
     private Stun_Target stunTarget;
     private Immobilize_Target immobilizeTarget;
+    private Throw_Up_Target throwUpTarget;
 
     #region Inputs / Commands
 
     // Input Keys
-    private KeyCode[] inputKeys = {KeyCode.Mouse0, KeyCode.E, KeyCode.Q, KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
+    private KeyCode[] inputKeys = {KeyCode.Mouse0, KeyCode.E, KeyCode.Q, KeyCode.F, KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space};
 
     // Current Movement Inputs
     private InputCommand pressCommand;
@@ -25,6 +26,7 @@ public class Player_Input : MonoBehaviour
     private InputCommand lightAttackCommand = new InputCommand(KeyCode.Mouse0, false, false);
     private InputCommand stunTargetCommand = new InputCommand(KeyCode.E, false, false);
     private InputCommand immobilizeTargetCommand = new InputCommand(KeyCode.Q, false, false);
+    private InputCommand throwUpTargetCommand = new InputCommand(KeyCode.F, false, false);
 
     // Movement Commands 
     private InputCommand dashForwardCommand = new InputCommand(KeyCode.W, false, true);
@@ -46,6 +48,7 @@ public class Player_Input : MonoBehaviour
         lightAttack = GetComponent<Light_Attack>();
         stunTarget = GetComponent<Stun_Target>();
         immobilizeTarget = GetComponent<Immobilize_Target>();
+        throwUpTarget = GetComponent<Throw_Up_Target>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -87,6 +90,9 @@ public class Player_Input : MonoBehaviour
 
             if (pressCommand.Equals(immobilizeTargetCommand))
                 immobilizeTarget.Cast();
+
+            if (pressCommand.Equals(throwUpTargetCommand))
+                throwUpTarget.Cast();
         }
     }
 

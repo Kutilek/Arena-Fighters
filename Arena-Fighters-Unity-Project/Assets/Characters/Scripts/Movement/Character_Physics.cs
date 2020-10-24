@@ -94,6 +94,13 @@ public class Character_Physics : MonoBehaviour
         groundCheck = transform.Find("GroundCheck");
     }
 
+    protected IEnumerator SetFallAfterInAir()
+    {
+        yield return new WaitForSeconds(3f);
+
+        currentGravityState = GravityState.Falling;
+    }
+
     protected virtual void Update()
     {
         currentSpeed = 4f;
@@ -103,7 +110,12 @@ public class Character_Physics : MonoBehaviour
 
         if (currentGravityState == GravityState.Falling || currentGravityState == GravityState.JumpedOffWall)
             AddGravity();
-
+        else if (currentGravityState == GravityState.InAir)
+        {
+            currentFallSpeed = 0f;
+            StartCoroutine(SetFallAfterInAir());
+        }
+            
         if (currentMovementImpairingEffect != MovementImpairingEffect.Stun)
             MoveCharacter(inputDirection);
     }

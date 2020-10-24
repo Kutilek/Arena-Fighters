@@ -244,8 +244,8 @@ MonoBehaviour:
   inputDirection: {x: 0, y: 0, z: 0}
   checkForGround: 1
   currentGravityState: 0
-  damping: 0
-  mass: 0
+  damping: 6
+  mass: 3
 --- !u!1 &437617827
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +467,7 @@ MonoBehaviour:
   inputDirection: {x: 0, y: 0, z: 0}
   checkForGround: 1
   currentGravityState: 0
-  damping: 1
+  damping: 6
   mass: 3
   inputDirectionRaw: {x: 0, y: 0, z: 0}
 --- !u!114 &1279326773
@@ -537,6 +537,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDistance: 15
   immobilizeLength: 3
+--- !u!114 &1279326784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279326771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae48c975e612334bba959ca0d68b533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDistance: 3
 --- !u!1001 &1287325632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -570,11 +583,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6009033395223533735, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.16195013
+      value: 0.16195016
       objectReference: {fileID: 0}
     - target: {fileID: 6009033395223533735, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.017787619
+      value: -0.017787624
       objectReference: {fileID: 0}
     - target: {fileID: 6009033395223533735, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.x
