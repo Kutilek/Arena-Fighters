@@ -93,6 +93,10 @@ public class Character_Physics : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundMask = LayerMask.GetMask("Ground");
         groundCheck = transform.Find("GroundCheck");
+    }
+
+    protected virtual void Start()
+    {
         currentSpeed = GetComponent<Speed>().GetAmount();
     }
 
