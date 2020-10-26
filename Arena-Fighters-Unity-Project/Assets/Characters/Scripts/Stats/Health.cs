@@ -4,4 +4,9 @@
     {
         amount -= decrease;
     }
+
+    public float GetStartingAmount()
+    {
+        return startingAmount;
+    }
 }

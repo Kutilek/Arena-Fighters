@@ -3,16 +3,21 @@ using UnityEngine.UI;
 
 public class Display_Health : MonoBehaviour
 {
-    private Text healthText;
+    private Slider slider;
     private Health health;
+
     private void Awake()
     {
-        healthText = GetComponent<Text>();
+        slider = GetComponent<Slider>();
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        slider.maxValue = health.GetStartingAmount();
     }
 
     void Update()
     {
-        healthText.text = health.GetAmount().ToString();
+        slider.value = health.GetAmount();
+
+        if (Input.GetKeyDown(KeyCode.G))
+            health.DecreaseHealth(5f);
     }
 }

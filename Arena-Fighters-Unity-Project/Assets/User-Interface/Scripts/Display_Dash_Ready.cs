@@ -1,27 +1,37 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Display_Dash_Ready : MonoBehaviour
 {
-    private Text dashText;
+    private Slider slider;
     private Dash dash;
+    private Image image;
+
     private void Awake()
     {
-        dashText = GetComponent<Text>();
+        slider = GetComponent<Slider>();
         dash = GameObject.FindGameObjectWithTag("Player").GetComponent<Dash>();
+        image = slider.fillRect.GetComponent<Image>();
     }
+
+    private float timer;
 
     void Update()
     {
-        if (!dash.GetDashed())
+        slider.maxValue = dash.GetDashCooldown();
+
+        if (dash.GetDashed())
         {
-            dashText.color = Color.green;
-            dashText.text = "Dash Is Ready";
-        }      
+            if (slider.value == slider.maxValue)
+                slider.value = 0f;
+                
+            slider.value += Time.deltaTime;        
+        }
+
+        if (slider.value == slider.maxValue)
+            image.color = Color.green;
         else
-        {
-            dashText.color = Color.red;
-            dashText.text = "Dash Is Not Ready";
-        }      
+            image.color = Color.gray;
     }
 }

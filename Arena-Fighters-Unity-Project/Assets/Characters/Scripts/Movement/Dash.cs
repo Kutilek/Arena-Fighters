@@ -9,6 +9,12 @@ public class Dash : MonoBehaviour
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashForce;
     private bool dashed;
+
+    public float GetDashCooldown()
+    {
+        return dashCooldown;
+    }
+
     public bool GetDashed()
     {
         return dashed;
