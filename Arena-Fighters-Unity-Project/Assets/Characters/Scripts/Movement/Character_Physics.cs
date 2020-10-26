@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Speed))]
 public class Character_Physics : MonoBehaviour
 {
     private CharacterController controller;
@@ -92,6 +93,7 @@ public class Character_Physics : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundMask = LayerMask.GetMask("Ground");
         groundCheck = transform.Find("GroundCheck");
+        currentSpeed = GetComponent<Speed>().GetAmount();
     }
 
     protected IEnumerator SetFallAfterInAir()
@@ -103,8 +105,6 @@ public class Character_Physics : MonoBehaviour
 
     protected virtual void Update()
     {
-        currentSpeed = 4f;
-
         CheckIfGrounded();
         RotateOnGround();
 
