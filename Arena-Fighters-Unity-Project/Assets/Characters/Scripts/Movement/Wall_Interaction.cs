@@ -10,15 +10,18 @@ public class Wall_Interaction : MonoBehaviour
     private Transform arenaCenter;
     [SerializeField] private float onWallDuration;
     [SerializeField] private float jumpOffWallForce;
+    [SerializeField] private float wallSpeed;
 
     // If the inputDirection.x is greater than 0.2f calculate Vector3 for the movement on wall
     public Vector3 CalculateDirectiOnOnWall(Vector3 inputDirection)
     {
+        RotateToArenaCenter();
+
         if (Mathf.Abs(inputDirection.x) >= 0.2f)
         {
             float targetAngle = Mathf.Atan2(inputDirection.x, 0f) * Mathf.Rad2Deg;
-            Vector3 movementDirection = Quaternion.Euler(0f, transform.eulerAngles.y - targetAngle, 0f) * Vector3.forward;
-            return new Vector3(movementDirection.x, 0f, 0f) * 5f + Vector3.forward;
+            Vector3 movementDirection = Quaternion.Euler(0f, transform.eulerAngles.y - targetAngle, 0f) * Vector3.forward * wallSpeed;
+            return movementDirection;
         }
         return Vector3.zero;
     }
@@ -33,6 +36,8 @@ public class Wall_Interaction : MonoBehaviour
 
     private void Awake()
     {
+        if (wallSpeed == 0f)
+            wallSpeed = 4f;
         characterPhysics = GetComponent<Character_Physics>();
         arenaCenter = GameObject.FindGameObjectWithTag("ArenaCenter").transform;
     }
@@ -48,8 +53,7 @@ public class Wall_Interaction : MonoBehaviour
         // Make Player Stick to the wall
         characterPhysics.currentGravityState = GravityState.OnWall;
         characterPhysics.ResetGravity();
-        StartCoroutine(FallFromWall());
-        RotateToArenaCenter();
+        StartCoroutine(FallFromWall()); 
 
         // After 0.2f Reseting Impact so the player won't slide up the wall
         yield return new WaitForSeconds(0.2f);
