@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6009033394741747108, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.09305488
+      value: 0.093054876
       objectReference: {fileID: 0}
     - target: {fileID: 6009033394741747108, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.y
@@ -621,7 +621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6009033394741747108, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.08671045
+      value: -0.086710446
       objectReference: {fileID: 0}
     - target: {fileID: 6009033394741747108, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -741,7 +741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6009033396653022882, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.72385234
+      value: 0.7238524
       objectReference: {fileID: 0}
     - target: {fileID: 6009033396653022882, guid: 09dcfe309251ccb4d8b47bfa711b89e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -868,7 +868,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288578614}
-  m_LocalRotation: {x: 0.09305489, y: 0.67618966, z: -0.086710475, w: 0.72566503}
+  m_LocalRotation: {x: 0.093054876, y: 0.67618966, z: -0.08671045, w: 0.72566503}
   m_LocalPosition: {x: -0.55023956, y: 7, z: -17.009956}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1144,6 +1144,10 @@ PrefabInstance:
     - target: {fileID: 2894914228231280428, guid: 40035152ed533804e9bb8682a27df635, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894914228231280430, guid: 40035152ed533804e9bb8682a27df635, type: 3}
+      propertyPath: dashForce
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2894914228231280431, guid: 40035152ed533804e9bb8682a27df635, type: 3}
       propertyPath: jumpForce

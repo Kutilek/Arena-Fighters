@@ -25,15 +25,13 @@ public class Player_Physics : Character_Physics
         // Rotate only if Grounded
         if (currentGravityState == GravityState.Grounded)
         {
-            float turnSmoothTime = 0.05f;
             float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
-            float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             if (inputDirectionRaw.magnitude >= 0.1f)
             {
                 // Rotates only when moving forward, else player is rotated in the camera direction
                 if (inputDirectionRaw.z > 0.5f)
-                    transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
+                    transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
                 else
                     transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);
             }
