@@ -72,6 +72,11 @@ public class Character_Physics : MonoBehaviour
         currentMovementImpairingEffect = effect;
     }
 
+    public MovementImpairingEffect GetMovementImpairingEffect()
+    {
+        return currentMovementImpairingEffect;
+    }
+
     public IEnumerator PauseGroundCheck()
     {
         checkForGround = false;

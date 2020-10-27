@@ -135,30 +135,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 501465118671258255, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 501465118671258255, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042837303050544945, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042837303050544945, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3102825509714460200, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -57.899994
-      objectReference: {fileID: 0}
-    - target: {fileID: 3102825509714460200, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 38.84001
-      objectReference: {fileID: 0}
     - target: {fileID: 4506079698535515201, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -246,14 +222,6 @@ PrefabInstance:
     - target: {fileID: 4506079698535515205, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445695576156928471, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -25.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445695576156928471, guid: b67d4265a3f3e7945934740086b02b58, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 60.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b67d4265a3f3e7945934740086b02b58, type: 3}

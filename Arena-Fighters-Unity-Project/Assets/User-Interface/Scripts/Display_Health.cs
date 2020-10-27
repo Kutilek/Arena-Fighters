@@ -16,8 +16,5 @@ public class Display_Health : MonoBehaviour
     void Update()
     {
         slider.value = health.GetAmount();
-
-        if (Input.GetKeyDown(KeyCode.G))
-            health.DecreaseHealth(5f);
     }
 }

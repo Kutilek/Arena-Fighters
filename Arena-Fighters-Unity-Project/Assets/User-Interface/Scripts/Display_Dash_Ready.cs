@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Display_Dash_Ready : MonoBehaviour
@@ -12,7 +11,8 @@ public class Display_Dash_Ready : MonoBehaviour
     {
         slider = GetComponent<Slider>();
         dash = GameObject.FindGameObjectWithTag("Player").GetComponent<Dash>();
-        image = slider.fillRect.GetComponent<Image>();
+        slider.maxValue = dash.GetDashCooldown();
+        slider.value = slider.maxValue;
     }
 
     private float timer;
@@ -28,10 +28,5 @@ public class Display_Dash_Ready : MonoBehaviour
                 
             slider.value += Time.deltaTime;        
         }
-
-        if (slider.value == slider.maxValue)
-            image.color = Color.green;
-        else
-            image.color = Color.gray;
     }
 }

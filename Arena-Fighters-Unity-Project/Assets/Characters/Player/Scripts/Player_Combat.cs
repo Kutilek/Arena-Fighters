@@ -9,7 +9,6 @@ public class Player_Combat : Character_Combat
         {
             if (col.GetComponent<Character_Combat>() != null)
             {
-                Debug.Log(col);
                 transform.LookAt(col.transform);
                 Health targetHealth;
                 Character_Physics target = base.GetCombatCharacterComponents(distance, out targetHealth);
