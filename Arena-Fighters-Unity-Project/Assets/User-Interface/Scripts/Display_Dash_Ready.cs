@@ -26,7 +26,7 @@ public class Display_Dash_Ready : MonoBehaviour
             if (slider.value == slider.maxValue)
                 slider.value = 0f;
                 
-            slider.value += Time.deltaTime;        
+            slider.value += Time.deltaTime;
         }
     }
 }
