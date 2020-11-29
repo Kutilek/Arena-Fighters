@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7193841705382345981}
   - component: {fileID: 7193841705382345955}
   - component: {fileID: 7193841705382345980}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7193841705682051648}
   - component: {fileID: 7193841705682051654}
   - component: {fileID: 7193841705682051655}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7193841705794284329}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7193841706090527520}
   - component: {fileID: 7193841706476578336}
-  m_Layer: 0
+  - component: {fileID: 418944862}
+  - component: {fileID: 418944863}
+  - component: {fileID: 418944864}
+  - component: {fileID: 418944865}
+  - component: {fileID: 418944866}
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -244,3 +249,71 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &418944862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193841706476578337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f982361af12b38140a47508170c401af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &418944863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193841706476578337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ff0cf79737c5c4ea0fb5ba757b03c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingAmount: 1
+--- !u!114 &418944864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193841706476578337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3a7f725a65a03499812d75312d7c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingAmount: 100
+--- !u!114 &418944865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193841706476578337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c799395c7e54924b95d9108fc13391c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputDirection: {x: 0, y: 0, z: 0}
+  checkForGround: 1
+  currentGravityState: 0
+  damping: 6
+  mass: 3
+--- !u!114 &418944866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193841706476578337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a752ca13b24ad8841bcde9bdbd7ae7ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingAmount: 4

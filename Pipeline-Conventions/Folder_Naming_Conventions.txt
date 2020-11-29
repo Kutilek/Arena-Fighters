@@ -1,4 +1,0 @@
-Folder naming is very simple. Each word starts with a capital letter, and it's separated by a dash.
-
-Examples: Concept-Art
-	  Character-Design
