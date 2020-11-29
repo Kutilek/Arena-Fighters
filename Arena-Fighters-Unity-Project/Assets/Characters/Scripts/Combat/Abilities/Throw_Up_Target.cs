@@ -8,7 +8,7 @@ public class Throw_Up_Target : Combat_Ability
     {
         Health targetHealth;
         Character_Physics target = characterCombat.GetCombatCharacterComponents(abilityDistance, out targetHealth);
-        if (target != null)
+        if (target != null && characterPhysics.currentGravityState == GravityState.Grounded)
         {
             StartCoroutine(characterPhysics.PauseGroundCheck());
             StartCoroutine(target.PauseGroundCheck());

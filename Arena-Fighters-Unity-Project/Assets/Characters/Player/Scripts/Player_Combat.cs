@@ -10,6 +10,7 @@ public class Player_Combat : Character_Combat
             if (col.GetComponent<Character_Combat>() != null)
             {
                 transform.LookAt(col.transform);
+                transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
                 Health targetHealth;
                 Character_Physics target = base.GetCombatCharacterComponents(distance, out targetHealth);
                 health = targetHealth;

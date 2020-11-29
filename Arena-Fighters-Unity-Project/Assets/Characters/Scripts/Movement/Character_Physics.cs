@@ -121,7 +121,7 @@ public class Character_Physics : MonoBehaviour
             AddGravity();
         else if (currentGravityState == GravityState.InAir)
         {
-            currentFallSpeed = 0f;
+            currentFallSpeed = 0.1f;
             StartCoroutine(SetFallAfterInAir());
         }
             
