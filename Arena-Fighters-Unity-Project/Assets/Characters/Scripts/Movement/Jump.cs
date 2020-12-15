@@ -11,7 +11,7 @@ public class Jump : MonoBehaviour
     {
         if (characterPhysics.currentGravityState == GravityState.Grounded)
             StartCoroutine(CalculateJump());
-        else if (characterPhysics.currentGravityState == GravityState.JumpedOffWall)
+        else if (characterPhysics.currentGravityState == GravityState.FallingOffWall)
             characterPhysics.AddForce(Vector3.down, jumpForce); /* Push Character Down If jumped of wall */
     }
 

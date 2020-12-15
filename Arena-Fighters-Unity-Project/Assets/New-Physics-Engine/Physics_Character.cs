@@ -2,13 +2,15 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Speed))]
-public class Character_Physics : MonoBehaviour
+public abstract class Physics_Character : MonoBehaviour
 {
-    private CharacterController controller;
+    protected CharacterController controller;
+    protected Animator animator;
 
     // Gravity
-    private readonly float gravity = Physics.gravity.y;
+    private readonly float gravity = Physics.gravity.y * gravityMultiplier;
     private const float gravityMultiplier = 1.8246f;
     private const float gravityOnGround = -2f;
     
@@ -16,9 +18,10 @@ public class Character_Physics : MonoBehaviour
     protected Transform groundCheck;
     protected LayerMask groundMask;
     protected float groundDistance = 0.1f;
+    protected bool checkForGround;
 
     // Movement Values
-    public Vector3 inputDirection;
+    protected Vector3 inputDirection;
     protected float currentSpeed;
     protected float currentFallSpeed;
     protected Vector3 velocity;
@@ -26,7 +29,6 @@ public class Character_Physics : MonoBehaviour
     protected Vector3 currentOutsideImpact;
     
     // States
-    public bool checkForGround = true;
     public GravityState currentGravityState;
     protected MovementImpairingEffect currentMovementImpairingEffect = MovementImpairingEffect.None;
 
@@ -72,16 +74,11 @@ public class Character_Physics : MonoBehaviour
         currentMovementImpairingEffect = effect;
     }
 
-    public MovementImpairingEffect GetMovementImpairingEffect()
-    {
-        return currentMovementImpairingEffect;
-    }
-
     public IEnumerator PauseGroundCheck()
     {
         checkForGround = false;
 
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
 
         checkForGround = true;
     }
@@ -96,6 +93,7 @@ public class Character_Physics : MonoBehaviour
             mass = 3f;
 
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         groundMask = LayerMask.GetMask("Ground");
         groundCheck = transform.Find("GroundCheck");
     }
@@ -105,26 +103,18 @@ public class Character_Physics : MonoBehaviour
         currentSpeed = GetComponent<Speed>().GetAmount();
     }
 
-    protected IEnumerator SetFallAfterInAir()
-    {
-        yield return new WaitForSeconds(3f);
-
-        currentGravityState = GravityState.Falling;
-    }
-
     protected virtual void Update()
     {
         CheckIfGrounded();
         RotateOnGround();
 
-        if (currentGravityState == GravityState.Falling || currentGravityState == GravityState.FallingOffWall)
+        if (currentGravityState == GravityState.Grounded)
+            currentFallSpeed = gravityOnGround;     
+        else if (currentGravityState == GravityState.OnWall)
+            currentFallSpeed = 0f;
+        else
             AddGravity();
-       /* else if (currentGravityState == GravityState.InAir)
-        {
-            currentFallSpeed = 0.1f;
-            StartCoroutine(SetFallAfterInAir());
-        }*/
-            
+                   
         if (currentMovementImpairingEffect != MovementImpairingEffect.Stun)
             MoveCharacter(inputDirection);
     }
@@ -139,21 +129,22 @@ public class Character_Physics : MonoBehaviour
             float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             if (inputDirection.magnitude >= 0.1f)
+            {
                 transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
+                
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+            }
         }
     }
 
     // Checks if check for ground is needed
     protected void CheckIfGrounded()
     {
-        if (checkForGround)
-        {
-            if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
-            {
-                currentGravityState = GravityState.Grounded;
-                currentFallSpeed = gravityOnGround;
-            }
-        }   
+        if (checkForGround && Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
+            currentGravityState = GravityState.Grounded;
     }
 
     // Sets the Character Velocity

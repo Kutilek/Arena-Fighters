@@ -31,7 +31,7 @@ public class Wall_Interaction : MonoBehaviour
         // Stops All Coroutines Just in Case OnWallEnter() has not stopped
         StopAllCoroutines();
         characterPhysics.AddForce(Quaternion.Euler(0f, transform.eulerAngles.y , 0f) * new Vector3(0f, 1f, 1f), jumpOffWallForce);
-        characterPhysics.currentGravityState = GravityState.JumpedOffWall;
+        characterPhysics.currentGravityState = GravityState.FallingOffWall;
     }
 
     private void Awake()

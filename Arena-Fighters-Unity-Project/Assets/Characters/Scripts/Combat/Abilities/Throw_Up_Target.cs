@@ -13,8 +13,8 @@ public class Throw_Up_Target : Combat_Ability
             StartCoroutine(characterPhysics.PauseGroundCheck());
             StartCoroutine(target.PauseGroundCheck());
             target.SetMovementImpairingEffect(MovementImpairingEffect.Immobilization);
-            target.currentGravityState = GravityState.InAir;
-            characterPhysics.currentGravityState = GravityState.InAir;
+           /* target.currentGravityState = GravityState.InAir;
+            characterPhysics.currentGravityState = GravityState.InAir;*/
             
             characterPhysics.AddForce(Vector3.up, 80f);
             target.AddOutsideForce(Vector3.up, 80f);
