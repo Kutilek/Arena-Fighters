@@ -6,17 +6,22 @@ public class Input_Player : MonoBehaviour
     // Components
     private Physics_Player characterPhysics;
 
+    private Command jump;
+
     private void Start()
     {
         if (doublePressTime == 0f)
             doublePressTime = 0.25f;
         characterPhysics = GetComponent<Physics_Player>();
         Cursor.lockState = CursorLockMode.Locked;
+        jump = new Command(KeyCode.Space, GetComponent<Jumpido>());
     }
 
     private void Update()
     {
         characterPhysics.inputDirectionRaw = GetMoveDirection();
+        if (Input.GetKeyDown(jump.keyCode))
+            jump.ability.Cast();
     }
 
     // Get Raw Input from Movement keys

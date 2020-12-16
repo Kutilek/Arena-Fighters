@@ -15,6 +15,7 @@ public class Physics_Player : Physics_Character
     {
         base.Update();
         inputDirection = CalculateDirectionOnGround();
+        animator.SetFloat("fallingSpeed", velocity.y);
     }
 
     protected override void RotateOnGround()
@@ -28,11 +29,18 @@ public class Physics_Player : Physics_Character
             {
                 // Rotates only when moving forward, else player is rotated in the camera direction
                 if (inputDirectionRaw.z > 0.5f)
+                {
                     transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-                    
+                    animator.SetBool("isWalking", true);
+                }     
                 else
+                {
                     transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);   
+                }
+                    
             }
+            else
+                animator.SetBool("isWalking", false);
         }
     }
 

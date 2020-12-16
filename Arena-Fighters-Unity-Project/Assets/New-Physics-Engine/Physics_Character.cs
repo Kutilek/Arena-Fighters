@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Speed))]
 public abstract class Physics_Character : MonoBehaviour
 {
-    protected CharacterController controller;
     protected Animator animator;
+    protected CharacterController controller;
 
     // Gravity
     private readonly float gravity = Physics.gravity.y * gravityMultiplier;
@@ -129,14 +129,7 @@ public abstract class Physics_Character : MonoBehaviour
             float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             if (inputDirection.magnitude >= 0.1f)
-            {
                 transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
-                
-            }
-            else
-            {
-                animator.SetBool("isWalking", false);
-            }
         }
     }
 
@@ -144,7 +137,14 @@ public abstract class Physics_Character : MonoBehaviour
     protected void CheckIfGrounded()
     {
         if (checkForGround && Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
+        {
             currentGravityState = GravityState.Grounded;
+            animator.SetBool("grounded", true);
+        }
+        else
+        {
+            animator.SetBool("grounded", false);
+        }
     }
 
     // Sets the Character Velocity

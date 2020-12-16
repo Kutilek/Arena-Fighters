@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Command : MonoBehaviour
+public class Command
 {
     public KeyCode keyCode;
     public Ability ability;
