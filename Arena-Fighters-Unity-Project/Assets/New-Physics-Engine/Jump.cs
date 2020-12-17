@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-public class Jumpido : Ability
+public class Jump : Ability
 {
     [SerializeField] private float jumpForce;
     

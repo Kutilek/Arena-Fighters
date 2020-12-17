@@ -14,7 +14,7 @@ public class Input_Player : MonoBehaviour
             doublePressTime = 0.25f;
         characterPhysics = GetComponent<Physics_Player>();
         Cursor.lockState = CursorLockMode.Locked;
-        jump = new Command(KeyCode.Space, GetComponent<Jumpido>());
+        jump = new Command(KeyCode.Space, GetComponent<Jump>());
     }
 
     private void Update()
