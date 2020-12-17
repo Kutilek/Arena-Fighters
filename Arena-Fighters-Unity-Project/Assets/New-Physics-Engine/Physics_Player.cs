@@ -27,17 +27,13 @@ public class Physics_Player : Physics_Character
 
             if (inputDirectionRaw.magnitude >= 0.1f)
             {
+                animator.SetBool("isWalking", true);
+
                 // Rotates only when moving forward, else player is rotated in the camera direction
                 if (inputDirectionRaw.z > 0.5f)
-                {
-                    transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-                    animator.SetBool("isWalking", true);
-                }     
+                    transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);    
                 else
-                {
-                    transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);   
-                }
-                    
+                    transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);           
             }
             else
                 animator.SetBool("isWalking", false);

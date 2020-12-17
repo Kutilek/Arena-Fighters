@@ -8,8 +8,6 @@ public class Jumpido : Ability
     {
         StartCoroutine(SetJumped());
         characterPhysics.AddForce(Vector3.up, jumpForce);
-        StartCoroutine(characterPhysics.PauseGroundCheck());
-        characterPhysics.currentGravityState = GravityState.Falling;
     }
 
     private IEnumerator SetJumped()

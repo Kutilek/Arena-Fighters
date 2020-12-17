@@ -18,7 +18,7 @@ public abstract class Physics_Character : MonoBehaviour
     protected Transform groundCheck;
     protected LayerMask groundMask;
     protected float groundDistance = 0.1f;
-    protected bool checkForGround;
+    protected bool checkForGround = true;
 
     // Movement Values
     protected Vector3 inputDirection;
@@ -74,11 +74,11 @@ public abstract class Physics_Character : MonoBehaviour
         currentMovementImpairingEffect = effect;
     }
 
-    public IEnumerator PauseGroundCheck()
+    public IEnumerator PauseCheckForGround(float length)
     {
         checkForGround = false;
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(length);
 
         checkForGround = true;
     }
@@ -129,21 +129,30 @@ public abstract class Physics_Character : MonoBehaviour
             float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             if (inputDirection.magnitude >= 0.1f)
+            {
                 transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
+                animator.SetBool("isWalking", true);
+            }
+            else
+                animator.SetBool("isWalking", false);
         }
     }
 
     // Checks if check for ground is needed
     protected void CheckIfGrounded()
     {
-        if (checkForGround && Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
+        if (checkForGround)
         {
-            currentGravityState = GravityState.Grounded;
-            animator.SetBool("grounded", true);
-        }
-        else
-        {
-            animator.SetBool("grounded", false);
+            if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
+            {
+                currentGravityState = GravityState.Grounded;
+                animator.SetBool("grounded", true);
+            }
+            else
+            {
+                currentGravityState = GravityState.Falling;
+                animator.SetBool("grounded", false);
+            }
         }
     }
 

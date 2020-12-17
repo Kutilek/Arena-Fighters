@@ -5,7 +5,7 @@ public class Base_Enemy_AI : MonoBehaviour
 {
     protected Character_Physics characterPhysics;
     protected Dash dash;
-    protected Jump jump;
+   // protected Jump jump;
     protected Wall_Interaction wallInteraction;
     private Transform player;
 
@@ -13,7 +13,7 @@ public class Base_Enemy_AI : MonoBehaviour
     {
         characterPhysics = GetComponent<Character_Physics>();
         dash = GetComponent<Dash>();
-        jump = GetComponent<Jump>();
+     //   jump = GetComponent<Jump>();
         wallInteraction = GetComponent<Wall_Interaction>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
