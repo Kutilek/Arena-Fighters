@@ -69,9 +69,13 @@ public abstract class Physics_Character : MonoBehaviour
     }
 
     // Sets Movement Impairing Effect
-    public void SetMovementImpairingEffect(MovementImpairingEffect effect)
+    public IEnumerator SetMovementImpairingEffect(MovementImpairingEffect effect, float length)
     {
         currentMovementImpairingEffect = effect;
+
+        yield return new WaitForSeconds(length);
+
+        currentMovementImpairingEffect = MovementImpairingEffect.None;
     }
 
     public IEnumerator PauseCheckForGround(float length)
@@ -131,10 +135,10 @@ public abstract class Physics_Character : MonoBehaviour
             if (inputDirection.magnitude >= 0.1f)
             {
                 transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
-                animator.SetBool("isWalking", true);
+                animator.SetFloat("walks", 1f);
             }
             else
-                animator.SetBool("isWalking", false);
+                animator.SetFloat("walks", 0f);
         }
     }
 

@@ -350,7 +350,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384394169}
-  m_LocalRotation: {x: 0.09034587, y: -0.12078648, z: 0.011039547, w: 0.988497}
+  m_LocalRotation: {x: 0.090345874, y: -0.12078652, z: 0.01103955, w: 0.988497}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -509,8 +509,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425092346}
-  m_LocalRotation: {x: 0.090345874, y: -0.120786466, z: 0.011039547, w: 0.988497}
-  m_LocalPosition: {x: -0.4879532, y: 4, z: -16.026932}
+  m_LocalRotation: {x: 0.09034588, y: -0.12078654, z: 0.011039554, w: 0.988497}
+  m_LocalPosition: {x: -0.4879532, y: 5.5, z: -16.026932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -567,7 +567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c0c9b109439fdb9488a669a1d849915b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c0c9b109439fdb9488a669a1d849915b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1389,11 +1389,11 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 5
+  m_Height: 4.8
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &818974238
@@ -1409,6 +1409,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingAmount: 5
+--- !u!114 &818974239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818974229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766dc97e4ff37b44d89ff08f2bb265af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationCondition: jumped
+  jumpForce: 400
 --- !u!114 &818974240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1794,7 +1808,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154816799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4879532, y: 4, z: -16.026932}
+  m_LocalPosition: {x: -0.4879532, y: 5.5, z: -16.026932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 397225151}
