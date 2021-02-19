@@ -17,7 +17,7 @@ public abstract class Physics_Character : MonoBehaviour
     // Ground Checking
     protected Transform groundCheck;
     protected LayerMask groundMask;
-    protected float groundDistance = 0.1f;
+    protected float groundDistance = 0.2f;
     protected bool checkForGround = true;
 
     // Movement Values

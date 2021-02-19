@@ -6,6 +6,7 @@ public abstract class Ability : MonoBehaviour
 {
     protected Physics_Character characterPhysics;
     protected Animator animator;
+    
     [SerializeField] protected string animationCondition;
     
     protected virtual void Start()

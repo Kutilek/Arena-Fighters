@@ -7,6 +7,8 @@ public class Input_Player : MonoBehaviour
     private Physics_Player characterPhysics;
 
     private Command jump;
+    private Command swordOut;
+    private Command swordSlash;
 
     private void Start()
     {
@@ -14,14 +16,22 @@ public class Input_Player : MonoBehaviour
             doublePressTime = 0.25f;
         characterPhysics = GetComponent<Physics_Player>();
         Cursor.lockState = CursorLockMode.Locked;
-        jump = new Command(KeyCode.Space, GetComponent<Jump>());
+       // jump = new Command(KeyCode.Space, GetComponent<Jump>());
+        swordOut = new Command(KeyCode.LeftShift, GetComponent<Sword_Out>());
+        swordSlash = new Command(KeyCode.Mouse0, GetComponent<Sword_Slash>());
     }
 
     private void Update()
     {
         characterPhysics.inputDirectionRaw = GetMoveDirection();
-        if (Input.GetKeyDown(jump.keyCode))
-            jump.ability.Cast();
+     /*   if (Input.GetKeyDown(jump.keyCode))
+            jump.ability.Cast();*/
+
+        if (Input.GetKeyDown(swordOut.keyCode))
+            swordOut.ability.Cast();
+
+        if (Input.GetKeyDown(swordSlash.keyCode))
+            swordSlash.ability.Cast();
     }
 
     // Get Raw Input from Movement keys
