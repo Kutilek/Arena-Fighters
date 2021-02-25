@@ -22,6 +22,7 @@ public abstract class Physics_Character : MonoBehaviour
 
     // Movement Values
     protected Vector3 inputDirection;
+    protected float startingSpeed;
     protected float currentSpeed;
     protected float currentFallSpeed;
     protected Vector3 velocity;
@@ -78,6 +79,21 @@ public abstract class Physics_Character : MonoBehaviour
         currentMovementImpairingEffect = MovementImpairingEffect.None;
     }
 
+    public void SetMovementImpairingEffectNone()
+    {
+        currentMovementImpairingEffect = MovementImpairingEffect.None;
+    }
+
+    public void SetMovementImpairingEffectImmobilized()
+    {
+        currentMovementImpairingEffect = MovementImpairingEffect.Immobilization;
+    }
+
+    public void SetMovementImpairingEffectStun()
+    {
+        currentMovementImpairingEffect = MovementImpairingEffect.Stun;
+    }
+
     public IEnumerator PauseCheckForGround(float length)
     {
         checkForGround = false;
@@ -104,14 +120,14 @@ public abstract class Physics_Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        currentSpeed = GetComponent<Speed>().GetAmount();
+        startingSpeed = GetComponent<Speed>().GetAmount();
     }
 
     protected virtual void Update()
     {
         CheckIfGrounded();
         RotateOnGround();
-
+        
         if (currentGravityState == GravityState.Grounded)
             currentFallSpeed = gravityOnGround;     
         else if (currentGravityState == GravityState.OnWall)
@@ -121,6 +137,8 @@ public abstract class Physics_Character : MonoBehaviour
                    
         if (currentMovementImpairingEffect != MovementImpairingEffect.Stun)
             MoveCharacter(inputDirection);
+
+        animator.SetFloat("fallingSpeed", velocity.y);
     }
 
     protected float turnSmoothVelocity;
@@ -163,7 +181,16 @@ public abstract class Physics_Character : MonoBehaviour
     // Sets the Character Velocity
     protected void MoveCharacter(Vector3 direction)
     {
+        float speedMultiplier;
+
         velocity = Vector3.up * currentFallSpeed;
+
+        if (currentGravityState == GravityState.Falling)
+            speedMultiplier = 0.7f;
+        else
+            speedMultiplier = 1f;
+
+        currentSpeed = startingSpeed * speedMultiplier;
 
         if (currentMovementImpairingEffect != MovementImpairingEffect.Immobilization)
         {

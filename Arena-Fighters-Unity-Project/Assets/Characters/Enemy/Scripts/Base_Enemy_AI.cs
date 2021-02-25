@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Character_Physics))]
+// [RequireComponent(typeof(Character_Physics))]
 public class Base_Enemy_AI : MonoBehaviour
 {
-    protected Character_Physics characterPhysics;
+  /*  protected Character_Physics characterPhysics;
     protected Dash dash;
    // protected Jump jump;
     protected Wall_Interaction wallInteraction;
@@ -23,7 +23,7 @@ public class Base_Enemy_AI : MonoBehaviour
         
     }
 
-    [SerializeField] private EnemyCommand moveRandomCommand;
+    [SerializeField] private EnemyCommand moveRandomCommand;*/
 
   /*  private IEnumerator MoveRandom()
     {

@@ -6,9 +6,13 @@ public class Input_Player : MonoBehaviour
     // Components
     private Physics_Player characterPhysics;
 
+    // Commands
     private Command jump;
-    private Command swordOut;
+    private Command dash;
     private Command swordSlash;
+    private Command hitPlayer;
+
+    private float doublePressTime;
 
     private void Start()
     {
@@ -16,22 +20,29 @@ public class Input_Player : MonoBehaviour
             doublePressTime = 0.25f;
         characterPhysics = GetComponent<Physics_Player>();
         Cursor.lockState = CursorLockMode.Locked;
-       // jump = new Command(KeyCode.Space, GetComponent<Jump>());
-        swordOut = new Command(KeyCode.LeftShift, GetComponent<Sword_Out>());
+
+        jump = new Command(KeyCode.Space, GetComponent<Jump>());
+        dash = new Command(KeyCode.LeftShift, GetComponent<Dash>());
         swordSlash = new Command(KeyCode.Mouse0, GetComponent<Sword_Slash>());
+        hitPlayer = new Command(KeyCode.Mouse0, GetComponent<Hit_Player>());
     }
 
     private void Update()
     {
         characterPhysics.inputDirectionRaw = GetMoveDirection();
-     /*   if (Input.GetKeyDown(jump.keyCode))
-            jump.ability.Cast();*/
+        
+        if (Input.GetKeyDown(jump.keyCode))
+            jump.ability.Cast();
 
-        if (Input.GetKeyDown(swordOut.keyCode))
-            swordOut.ability.Cast();
+        if (Input.GetKeyDown(dash.keyCode))
+            dash.ability.Cast();
 
         if (Input.GetKeyDown(swordSlash.keyCode))
             swordSlash.ability.Cast();
+
+        // Only For Test
+        if (Input.GetKeyDown(KeyCode.H))
+            hitPlayer.ability.Cast();
     }
 
     // Get Raw Input from Movement keys
@@ -42,14 +53,6 @@ public class Input_Player : MonoBehaviour
         Vector3 direction = new Vector3(ad, 0f, ws).normalized;
 
         return direction;
-    }
-
-    private bool GetHelperKeyPressed(KeyCode helperKey)
-    {
-        if (Input.GetKey(helperKey))
-            return true;
-        else
-            return false;
     }
 
     #region Command Creators
@@ -77,7 +80,6 @@ public class Input_Player : MonoBehaviour
 
     private KeyCode lastPressed;
     private float doublePressTimer;
-    [SerializeField] private float doublePressTime;
 
     private InputCommand CreateDoublePressCommand(KeyCode[] inputKeys)
     {

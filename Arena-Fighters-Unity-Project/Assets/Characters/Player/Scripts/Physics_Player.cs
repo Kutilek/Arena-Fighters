@@ -15,7 +15,6 @@ public class Physics_Player : Physics_Character
     {
         base.Update();
         inputDirection = CalculateDirectionOnGround();
-        animator.SetFloat("fallingSpeed", velocity.y);
     }
 
     private Vector3 CalculateDirectionOnGround()
