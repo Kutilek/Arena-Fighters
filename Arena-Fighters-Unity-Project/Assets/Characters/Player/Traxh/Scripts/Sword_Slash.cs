@@ -14,11 +14,13 @@ public class Sword_Slash : Ability_Traxh
     public override void Cast()
     {
         if (characterCombat.ableToCast && characterPhysics.currentGravityState == GravityState.Grounded)
-        {
+        {   
+           // characterPhysics.SetMovementImpairingEffectStun();
             animator.SetTrigger(animationCondition);
             characterCombat.attacking = true;
             characterCombat.ableToCast = false;
             attacking = true;
+            animator.SetFloat("walks", 0f);
         }
     }
 

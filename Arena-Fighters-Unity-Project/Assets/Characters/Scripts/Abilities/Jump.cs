@@ -12,6 +12,7 @@ public class Jump : Ability
             characterCombat.ableToCast = false;
             animator.SetBool("grounded", false);
             animator.SetTrigger(animationCondition);
+            characterCombat.attacking = false;
         }
     }
 

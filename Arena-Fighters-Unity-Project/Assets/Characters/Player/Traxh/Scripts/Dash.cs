@@ -35,6 +35,7 @@ public class Dash : Ability
             ableToCastDash = false;
             characterCombat.ableToCast = false;
             animator.SetTrigger(animationCondition);
+            characterCombat.attacking = false;
         }     
     }
 

@@ -126,8 +126,7 @@ public abstract class Physics_Character : MonoBehaviour
     protected virtual void Update()
     {
         CheckIfGrounded();
-        RotateOnGround();
-        
+
         if (currentGravityState == GravityState.Grounded)
             currentFallSpeed = gravityOnGround;     
         else if (currentGravityState == GravityState.OnWall)
@@ -136,7 +135,10 @@ public abstract class Physics_Character : MonoBehaviour
             AddGravity();
                    
         if (currentMovementImpairingEffect != MovementImpairingEffect.Stun)
-            MoveCharacter(inputDirection);
+        {
+            RotateOnGround();
+            MoveCharacter(inputDirection); 
+        }
 
         animator.SetFloat("fallingSpeed", velocity.y);
     }
