@@ -56836,14 +56836,21 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: SetMovementImpairingEffectImmobilized
+    functionName: ResetImpact
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: ResetImpact
+    functionName: SetAbleToCastDashTrue
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
+    functionName: SetMovementImpairingEffectImmobilized
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -56856,7 +56863,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9583333
+  - time: 1
+    functionName: SetAbleToCastDashTrue
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
     functionName: SetAbleToCastTrue
     data: 
     objectReferenceParameter: {fileID: 0}

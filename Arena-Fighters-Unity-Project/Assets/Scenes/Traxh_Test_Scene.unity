@@ -282,7 +282,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384394169}
-  m_LocalRotation: {x: 0.027325097, y: 0.9724006, z: -0.1517155, w: 0.17513661}
+  m_LocalRotation: {x: 0.027325105, y: 0.9724006, z: -0.1517155, w: 0.17513666}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -442,7 +442,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425092346}
-  m_LocalRotation: {x: 0.026689433, y: 0.9729447, z: -0.14818619, w: 0.17523459}
+  m_LocalRotation: {x: 0.026689444, y: 0.9729447, z: -0.14818619, w: 0.17523465}
   m_LocalPosition: {x: -19.333069, y: 11.213004, z: 37.653313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -833,6 +833,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1747794113, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
+      propertyPath: knockbackForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747794116, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
+      propertyPath: startingAmount
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747794119, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 24c6fea6d0848474da8220d50e58548b, type: 2}
+    - target: {fileID: 1747794119, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Pelvis0'\n\tTransform 'Knee.R'\n\tTransform
+        'Calves.R'\n\tTransform 'Foot.R'\n\tTransform 'Hip.L'\n\tTransform 'Pelvis0'\n\tTransform
+        'Knee.L'\n\tTransform 'Calves.L'\n\tTransform 'Foot.L'\n\tTransform 'Hip.R'\n\tand
+        more ...\n\tFrom animation clip 'Traxh_Jump'\n\tFrom animation clip 'Traxh_FloatUp'\n\tFrom
+        animation clip 'Traxh_Falling'\n\tFrom animation clip 'Traxh_Idle'\n\tFrom
+        animation clip 'Traxh_Run'\n\tFrom animation clip 'Traxh_Ground_Impact'\n\tFrom
+        animation clip 'Traxh_Get_Hit'\n\tFrom animation clip 'Traxh_Ground_Impact_Smash'\n\tFrom
+        animation clip 'Traxh_Smash_Ground'\n\tFrom animation clip 'Skeleton_Sword_Slash_0New'\n\tand
+        more ..."
+      objectReference: {fileID: 0}
     - target: {fileID: 3181996261439105218, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
       propertyPath: m_Name
       value: Sword 1
@@ -840,6 +866,10 @@ PrefabInstance:
     - target: {fileID: 3540717562135966091, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
       propertyPath: m_Name
       value: Traxh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540717562135966091, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208885913925298993, guid: 3ae73742f1bd94840a15076582ccb244, type: 3}
       propertyPath: m_RootOrder
@@ -1029,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3a7f725a65a03499812d75312d7c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingAmount: 0
+  startingAmount: 200
 --- !u!1 &1154816799
 GameObject:
   m_ObjectHideFlags: 0

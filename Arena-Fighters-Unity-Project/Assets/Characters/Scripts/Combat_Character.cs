@@ -32,6 +32,7 @@ public abstract class Combat_Character : MonoBehaviour
     {
         animator.SetTrigger("gotHit"); 
         ableToCast = false;
+        getHitEffect.Play(false);
     }
 
     // Animation Event
