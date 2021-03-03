@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Keep_Rotation_And_Position : MonoBehaviour
 {

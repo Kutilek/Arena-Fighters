@@ -5,11 +5,13 @@ public class Dash : Ability
 {
     protected new Physics_Player characterPhysics;
     public bool ableToCastDash = true;
+    private ParticleSystem ps;
     
     protected override void Start()
     {
         base.Start();
         characterPhysics = GetComponent<Physics_Player>();
+        ps = transform.Find("Parciles_Dash").GetComponent<ParticleSystem>();
     }
 
     [SerializeField] private float dashCooldown;
@@ -36,6 +38,7 @@ public class Dash : Ability
             characterCombat.ableToCast = false;
             animator.SetTrigger(animationCondition);
             characterCombat.attacking = false;
+            ps.Play();
         }     
     }
 

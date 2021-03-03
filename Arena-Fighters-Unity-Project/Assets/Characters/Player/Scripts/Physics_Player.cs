@@ -4,6 +4,7 @@ public class Physics_Player : Physics_Character
 {
     public Vector3 inputDirectionRaw;
     private Transform cam;
+    public ParticleSystem groundImpact;
     
     protected override void Awake()
     {
@@ -26,5 +27,10 @@ public class Physics_Player : Physics_Character
             return movementDirection;
         }
         return Vector3.zero;
+    }
+
+    private void PlayGroundImpactEffect()
+    {     
+        Instantiate(groundImpact, transform.Find("Ground_Impact_Position").position, transform.Find("Ground_Impact_Position").rotation);
     }
 }

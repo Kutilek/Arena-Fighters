@@ -5,10 +5,12 @@ public class Sword_Slash : Ability_Traxh
     public bool attacking;
     [SerializeField] private float knockbackForce;
     private Damage damage;
+    protected ParticleSystem[] swordSlashEffect;
 
     public void Awake()
     {
         damage = GetComponent<Damage>();
+        swordSlashEffect = transform.Find("Skeleton").Find("Sword 1").Find("Sword_Slash_Effect").GetComponentsInChildren<ParticleSystem>();
     }
 
     public override void Cast()
@@ -17,6 +19,9 @@ public class Sword_Slash : Ability_Traxh
         {   
            // characterPhysics.SetMovementImpairingEffectStun();
             animator.SetTrigger(animationCondition);
+            foreach (ParticleSystem ps in swordSlashEffect)
+                ps.Play();
+                
             characterCombat.attacking = true;
             characterCombat.ableToCast = false;
             attacking = true;
