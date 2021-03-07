@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Dash : Ability
+public class Dash : Ability_Traxh
 {
     protected new Physics_Player characterPhysics;
     public bool ableToCastDash = true;
@@ -77,12 +77,13 @@ public class Dash : Ability
     {
         // Calculate the angle of dash based on the Character Rotation Angle
         float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
-        Vector3 dashDirection = Quaternion.Euler(0f, transform.eulerAngles.y + targetAngle, 0f) * Vector3.forward;
+       // Vector3 dashDirection = ;
 
         // Coroutine for Dash Cooldown
        // StartCoroutine(ResetDash());
 
-        characterPhysics.AddForce(dashDirection, dashForce);
+        transform.rotation = Quaternion.Euler(0f, characterPhysics.cam.eulerAngles.y, 0f);
+        characterPhysics.AddForce(Quaternion.Euler(0f, characterPhysics.cam.eulerAngles.y, 0f) * Vector3.forward, dashForce);
 
         // Reseting Impact After dash is done
         yield return new WaitForSeconds(dashDuration);

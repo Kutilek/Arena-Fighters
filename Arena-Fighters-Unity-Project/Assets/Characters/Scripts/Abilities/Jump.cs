@@ -8,7 +8,6 @@ public class Jump : Ability
     {
         if (characterCombat.ableToCast)
         {
-            characterCombat.CheckIfAttackign();
             characterCombat.ableToCast = false;
             animator.SetBool("grounded", false);
             animator.SetTrigger(animationCondition);

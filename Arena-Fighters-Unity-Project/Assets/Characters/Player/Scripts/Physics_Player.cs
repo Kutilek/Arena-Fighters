@@ -3,7 +3,7 @@
 public class Physics_Player : Physics_Character
 {
     public Vector3 inputDirectionRaw;
-    private Transform cam;
+    public Transform cam;
     public ParticleSystem groundImpact;
     
     protected override void Awake()

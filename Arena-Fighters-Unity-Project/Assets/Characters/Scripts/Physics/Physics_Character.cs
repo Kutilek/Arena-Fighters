@@ -152,7 +152,7 @@ public abstract class Physics_Character : MonoBehaviour
             float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
             float smoothRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
-            if (inputDirection.magnitude >= 0.1f)
+            if (inputDirection.magnitude >= 0.001f)
             {
                 transform.rotation = Quaternion.Euler(0f, smoothRotation, 0f);
                 animator.SetFloat("walks", 1f);
