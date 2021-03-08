@@ -18,12 +18,15 @@ public class Physics_Enemy : Physics_Character
         SetAnimatorWalkX();
     }
 
+    float xdir;
     protected void SetAnimatorWalkX()
     {
-        float xdir = inputDirection.x;
-        if (xdir >= 0)
+        xdir = inputDirection.x;
+        if (xdir > 0f)
             animator.SetFloat("walkX", 1f);
-        else
+        else if (xdir < 0f)
             animator.SetFloat("walkX", -1f);
+        else
+            animator.SetFloat("walkX", 0f);
     }
 }

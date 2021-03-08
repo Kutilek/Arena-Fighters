@@ -181,6 +181,8 @@ public abstract class Physics_Character : MonoBehaviour
     }
 
     // Sets the Character Velocity
+
+    public float additionalSpeedMultiplier = 1f;
     protected void MoveCharacter(Vector3 direction)
     {
         float speedMultiplier;
@@ -192,7 +194,7 @@ public abstract class Physics_Character : MonoBehaviour
         else
             speedMultiplier = 1f;
 
-        currentSpeed = startingSpeed * speedMultiplier;
+        currentSpeed = startingSpeed * speedMultiplier * additionalSpeedMultiplier;
 
         if (currentMovementImpairingEffect != MovementImpairingEffect.Immobilization)
         {

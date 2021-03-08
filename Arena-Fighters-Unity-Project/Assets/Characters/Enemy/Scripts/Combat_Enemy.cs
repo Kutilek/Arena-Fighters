@@ -4,18 +4,12 @@ using UnityEngine;
 public class Combat_Enemy : Combat_Character
 {
     protected ParticleSystem[] attackingEffects;
-    protected Transform player;
 
     protected override void Awake()
     {
         base.Awake();
         attackingEffects = transform.Find("Armature").GetComponentsInChildren<ParticleSystem>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
-    private float random;
-    private float period = 3f;
-    private float lastCall = 0f;
 
     protected void Update()
     {
@@ -40,30 +34,24 @@ public class Combat_Enemy : Combat_Character
         }*/
     }
 
-    
-
-    public void Calculate()
+    public void StartAttackingState()
     {
-        if (lastCall + period <= Time.time)
-        {
-            random = Random.Range(1f, 100f);
-            lastCall = Time.time;
-        }
-    }
-
-    protected virtual void StartAttacking()
-    {
-        attacking = true;
-        animator.SetBool("attacking", attacking);
+        animator.SetBool("attacking", true);
         foreach (var effect in attackingEffects)
         {
             if (effect.isStopped)
-            {
-                Debug.Log("ANY JE NEJLEPSI");
                 effect.Play(false);
-            }
         }
-            
+    }
+
+    public void LeaveAttackingState()
+    {
+        animator.SetBool("attacking", false);
+        foreach (var effect in attackingEffects)
+        {
+            if (effect.isStopped)
+                effect.Stop(false);
+        }
     }
 
     protected virtual void OnDeath()
