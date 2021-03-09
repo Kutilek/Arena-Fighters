@@ -4,7 +4,7 @@ public abstract class Ability_AI : Ability
 {
     public float currentChance;
     [SerializeField] protected float callPeriod;
-    private float lastCall = 0f;
+    protected float lastCall = 0f;
     protected new Physics_Enemy characterPhysics;
     protected new Combat_Enemy characterCombat;
     public bool casted;

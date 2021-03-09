@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Combat_Enemy : Combat_Character
 {
@@ -13,25 +12,7 @@ public class Combat_Enemy : Combat_Character
 
     protected void Update()
     {
-       /* Calculate();
 
-        if (random >= 50f)
-        {
-            transform.LookAt(player);
-            transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
-        }*/
-/*
-        if (random > 50f)
-        {
-            StartAttacking();
-        }
-        else
-        {
-            attacking = false;
-            animator.SetBool("attacking", attacking);
-            foreach (var effect in attackingEffects)
-                effect.Stop();
-        }*/
     }
 
     public void StartAttackingState()
@@ -49,8 +30,8 @@ public class Combat_Enemy : Combat_Character
         animator.SetBool("attacking", false);
         foreach (var effect in attackingEffects)
         {
-            if (effect.isStopped)
-                effect.Stop(false);
+            if (!effect.isStopped)
+                effect.Stop();
         }
     }
 

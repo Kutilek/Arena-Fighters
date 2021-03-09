@@ -1,19 +1,14 @@
 ﻿using UnityEngine;
 
-public class Walk_Random : Ability_AI
+public class Walk_Around_Player : Ability_AI
 {
     protected float RandomX;
     protected float RandomZ;
-    protected Transform wall;
-    
-    protected override void Awake()
-    {
-        base.Awake();
-        wall = GameObject.FindGameObjectWithTag("Wall").transform;
-    }
 
     public override void Cast()
     {
+        characterPhysics.LookAtPlayer();
+
         if (!casted)
         {
             if(RandomX == 0f || RandomZ == 0f)
@@ -23,8 +18,7 @@ public class Walk_Random : Ability_AI
 
                 Vector3 direction = new Vector3(RandomX, 0f, RandomZ);
 
-                if (Vector3.Distance(transform.position, wall.position) >= 30f)
-                    direction -= (transform.position - wall.position).normalized;
+                direction -= characterPhysics.directionToPlayer;
 
                 direction.y = 0f;
                 
