@@ -6633,7 +6633,7 @@ GameObject:
   - component: {fileID: 8726479868819539114}
   m_Layer: 0
   m_Name: Traxh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6645,7 +6645,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8492600210354145500}
-  m_LocalRotation: {x: -0, y: 0.9272877, z: -0, w: 0.37434953}
+  m_LocalRotation: {x: 0, y: 0.9272884, z: 0, w: 0.37434775}
   m_LocalPosition: {x: -4.169513, y: 3, z: 18.934425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6823,7 +6823,9 @@ MonoBehaviour:
   currentGravityState: 0
   damping: 0
   mass: 0
+  additionalSpeedMultiplier: 1
   inputDirectionRaw: {x: 0, y: 0, z: 0}
+  cam: {fileID: 0}
   groundImpact: {fileID: 1867591266658748569, guid: 658f5fa901371984490a6e0c595b7de0, type: 3}
 --- !u!114 &8726479868819539114
 MonoBehaviour:

@@ -3342,6 +3342,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hit_Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 4443575437094775114, guid: bf80a236b9e3a274fa268b204262e802, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf80a236b9e3a274fa268b204262e802, type: 3}
 --- !u!4 &915642497741930705 stripped
