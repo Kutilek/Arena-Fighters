@@ -2924,8 +2924,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 809917175353543768}
   m_AABB:
-    m_Center: {x: 0, y: -0.14230812, z: 0.4070266}
-    m_Extent: {x: 1.0303801, y: 1.2478441, z: 0.45849788}
+    m_Center: {x: 0, y: -0.14230812, z: 0.40702656}
+    m_Extent: {x: 1.0303801, y: 1.2478441, z: 0.45849785}
   m_DirtyAABB: 0
 --- !u!183 &8726479868953399388
 Cloth:
@@ -6624,7 +6624,7 @@ GameObject:
   - component: {fileID: 8726479868819539107}
   - component: {fileID: 8726479868819539106}
   - component: {fileID: 8726479868819539105}
-  - component: {fileID: 8726479868819539104}
+  - component: {fileID: 8586853733967092341}
   - component: {fileID: 8726479868819539119}
   - component: {fileID: 8726479868819539118}
   - component: {fileID: 8726479868819539117}
@@ -6736,8 +6736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ff0cf79737c5c4ea0fb5ba757b03c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingAmount: 15
---- !u!114 &8726479868819539104
+  startingAmount: 35
+--- !u!114 &8586853733967092341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6746,7 +6746,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8492600210354145500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d3a7f725a65a03499812d75312d7c82, type: 3}
+  m_Script: {fileID: 11500000, guid: f4b9167a8e9875f48995fc8a36956629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingAmount: 150
