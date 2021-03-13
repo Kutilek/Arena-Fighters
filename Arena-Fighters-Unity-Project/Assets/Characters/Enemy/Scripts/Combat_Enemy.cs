@@ -10,11 +10,6 @@ public class Combat_Enemy : Combat_Character
         attackingEffects = transform.Find("Armature").GetComponentsInChildren<ParticleSystem>();
     }
 
-    protected void Update()
-    {
-
-    }
-
     public void StartAttackingState()
     {
         animator.SetBool("attacking", true);
