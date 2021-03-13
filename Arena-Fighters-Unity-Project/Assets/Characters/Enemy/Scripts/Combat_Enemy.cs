@@ -3,11 +3,13 @@
 public class Combat_Enemy : Combat_Character
 {
     protected ParticleSystem[] attackingEffects;
+    protected Score_Counter scoreCounter;
 
     protected override void Awake()
     {
         base.Awake();
         attackingEffects = transform.Find("Armature").GetComponentsInChildren<ParticleSystem>();
+        scoreCounter = GameObject.FindGameObjectWithTag("ScoreCounter").GetComponent<Score_Counter>();
     }
 
     public void StartAttackingState()
@@ -32,6 +34,7 @@ public class Combat_Enemy : Combat_Character
 
     protected virtual void OnDeath()
     {
+        scoreCounter.score += 3 + Random.Range(-2, 5);
         Destroy(gameObject);
     }
 }
