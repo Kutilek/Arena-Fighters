@@ -19,7 +19,6 @@ public class Input_Player : MonoBehaviour
         if (doublePressTime == 0f)
             doublePressTime = 0.25f;
         characterPhysics = GetComponent<Physics_Player>();
-        Cursor.lockState = CursorLockMode.Locked;
 
         jump = new Command(KeyCode.Space, GetComponent<Jump>());
         dash = new Command(KeyCode.LeftShift, GetComponent<Dash>());
@@ -39,10 +38,6 @@ public class Input_Player : MonoBehaviour
 
         if (Input.GetKeyDown(swordSlash.keyCode))
             swordSlash.ability.Cast();
-
-        // Only For Test
-        if (Input.GetKeyDown(KeyCode.H))
-            hitPlayer.ability.Cast();
     }
 
     // Get Raw Input from Movement keys

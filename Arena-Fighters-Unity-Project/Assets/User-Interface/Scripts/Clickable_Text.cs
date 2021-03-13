@@ -4,12 +4,12 @@ using UnityEngine.EventSystems;
 
 public abstract class Clickable_Text : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    private Text text;
-    private int startFontSize;
-    private Color startColor;
-    private Color hoverColor;
+    protected Text text;
+    protected int startFontSize;
+    protected Color startColor;
+    protected Color hoverColor;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         text = transform.GetComponentInChildren<Text>();
         startFontSize = text.fontSize;
