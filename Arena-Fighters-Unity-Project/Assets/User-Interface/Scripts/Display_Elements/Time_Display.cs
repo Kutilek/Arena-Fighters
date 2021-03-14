@@ -12,8 +12,8 @@ public class Time_Display : MonoBehaviour
 
     void Update()
     {
-        float minutes = Mathf.FloorToInt(Time.time / 60);  
-        float seconds = Mathf.FloorToInt(Time.time % 60);
+        float minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);  
+        float seconds = Mathf.FloorToInt(Time.timeSinceLevelLoad % 60);
 
         text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
