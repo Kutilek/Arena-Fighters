@@ -26,10 +26,10 @@ public class Enemy_Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (startSpawnTime + spawnPeriod <= Time.time)
+        if (startSpawnTime + spawnPeriod <= Time.timeSinceLevelLoad)
         {
             animator.SetTrigger("open");
-            startSpawnTime = Time.time;
+            startSpawnTime = Time.timeSinceLevelLoad;
         }
     }
 

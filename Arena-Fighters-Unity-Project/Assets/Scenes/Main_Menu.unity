@@ -923,7 +923,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "W A S D - Pohyb Postavy\nMezern\xEDk - Skok\nLev\xFD Shift - \xDAskok\nPrav\xE1
+  m_Text: "W A S D - Pohyb Postavy\nMezern\xEDk - Skok\nLev\xFD Shift - \xDAskok\nLev\xE1
     my\u0161 - \u0160vihnut\xED zrban\xED"
 --- !u!222 &1847482378
 CanvasRenderer:
