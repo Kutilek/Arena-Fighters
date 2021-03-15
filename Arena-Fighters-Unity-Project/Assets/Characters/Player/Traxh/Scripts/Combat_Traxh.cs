@@ -5,6 +5,7 @@
         if (attacking)
         {
             animator.SetTrigger("exitSwordAttack");
+            characterPhysics.SetMovementImpairingEffectNone();
             attacking = false;
         }
     }

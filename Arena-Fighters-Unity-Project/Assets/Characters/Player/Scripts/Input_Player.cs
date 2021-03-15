@@ -5,12 +5,12 @@ public class Input_Player : MonoBehaviour
 {
     // Components
     private Physics_Player characterPhysics;
+    private Combat_Traxh combat;
 
     // Commands
     private Command jump;
     private Command dash;
     private Command swordSlash;
-    private Command hitPlayer;
 
     private float doublePressTime;
 
@@ -23,7 +23,6 @@ public class Input_Player : MonoBehaviour
         jump = new Command(KeyCode.Space, GetComponent<Jump>());
         dash = new Command(KeyCode.LeftShift, GetComponent<Dash>());
         swordSlash = new Command(KeyCode.Mouse0, GetComponent<Sword_Slash>());
-        hitPlayer = new Command(KeyCode.Mouse0, GetComponent<Hit_Player>());
     }
 
     private void Update()

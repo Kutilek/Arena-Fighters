@@ -55,6 +55,8 @@ public class Dash : Ability_Traxh
 
     private void SetAbleToCastDashTrue()
     {
+        animator.ResetTrigger("exitSwordAttack");
+        characterCombat.attacking = false;
         ableToCastDash = true;
     }
 
