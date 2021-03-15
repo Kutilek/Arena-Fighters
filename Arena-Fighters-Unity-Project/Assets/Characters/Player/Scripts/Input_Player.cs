@@ -29,14 +29,15 @@ public class Input_Player : MonoBehaviour
     {
         characterPhysics.inputDirectionRaw = GetMoveDirection();
         
+        if (characterPhysics.inputDirectionRaw.magnitude <= 0.1f)
+            if (Input.GetKeyDown(swordSlash.keyCode))
+                swordSlash.ability.Cast();
+        
         if (Input.GetKeyDown(jump.keyCode))
             jump.ability.Cast();
 
         if (Input.GetKeyDown(dash.keyCode))
             dash.ability.Cast();
-
-        if (Input.GetKeyDown(swordSlash.keyCode))
-            swordSlash.ability.Cast();
     }
 
     // Get Raw Input from Movement keys
