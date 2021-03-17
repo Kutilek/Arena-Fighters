@@ -851,7 +851,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425092346}
-  m_LocalRotation: {x: 0.013861952, y: 0.98435557, z: -0.09072282, w: 0.15040416}
+  m_LocalRotation: {x: 0.013861954, y: 0.98435557, z: -0.09072282, w: 0.15040417}
   m_LocalPosition: {x: -1.4372149, y: 14.494717, z: 7.4962273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1915,7 +1915,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013923298}
-  m_LocalRotation: {x: 0.011677606, y: 0.9855686, z: -0.07642686, w: 0.1505895}
+  m_LocalRotation: {x: 0.011677611, y: 0.9855686, z: -0.07642687, w: 0.15058953}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4041,11 +4041,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7722858073134717878, guid: 2bb3619729dfd844c9f0798da10a0999, type: 3}
       propertyPath: spawnPeriod
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7722858073134717878, guid: 2bb3619729dfd844c9f0798da10a0999, type: 3}
       propertyPath: startSpawnTime
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb3619729dfd844c9f0798da10a0999, type: 3}
