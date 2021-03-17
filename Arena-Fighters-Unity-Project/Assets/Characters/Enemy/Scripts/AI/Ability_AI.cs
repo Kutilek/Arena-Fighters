@@ -30,9 +30,7 @@ public abstract class Ability_AI : Ability
     public void CalculateChance()
     {
         if (lastCall + callPeriod <= Time.time)
-        {
             DoStuffOnPeriodCall();
-        }
     }
 
     protected virtual void DoStuffOnPeriodCall()
